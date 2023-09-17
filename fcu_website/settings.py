@@ -75,9 +75,12 @@ WSGI_APPLICATION = "fcu_website.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rayraychang$django_database',
+        'USER': 'rayraychang',
+        'PASSWORD': '012345679@@',
+        'HOST': 'rayraychang.mysql.pythonanywhere-services.com',
     }
 }
 
