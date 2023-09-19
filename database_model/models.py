@@ -15,33 +15,3 @@ class citrix_log(models.Model):
     application_id = models.CharField(max_length=100) #origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[ApplicationInstance].ApplicationId
     session_user_id = models.CharField(max_length=100) #origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[Session].UserId
     application_sessionkey = models.CharField(max_length=100)#origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[ApplicationInstance].SessionKey
-
-'''
-USE CitrixFCUVDIMonitoring1;
-
-SELECT
-       b.Name
-      ,d.UserName
-      ,e.ClientAddress
-      ,a.StartDate
-      ,e.LogOnStartDate
-      ,c.StartDate
-      ,c.EndDate
-      ,e.LogOnEndDate
-      ,a.EndDate
-      ,a.ApplicationId
-      ,c.UserId
-      ,a.SessionKey
-  FROM [CitrixFCUVDIMonitoring1].[MonitorData].[ApplicationInstance] a
-      ,[CitrixFCUVDIMonitoring1].[MonitorData].[Application] b
-      ,[CitrixFCUVDIMonitoring1].[MonitorData].[Session] c
-      ,[CitrixFCUVDIMonitoring1].[MonitorData].[User] d
-      ,[CitrixFCUVDIMonitoring1].[MonitorData].[Connection] e
-where
-      a.ApplicationId = b.Id
-  and a.SessionKey = c.SessionKey
-  and c.UserId = d.id
-  and a.SessionKey = e.SessionKey
-
-
-'''
