@@ -23,7 +23,7 @@
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="" class="login" method="post"> {% csrf_token %}
+          <form action="" class="login" method="post">{% csrf_token %}
             <div class="field">
               <input type="text" placeholder="User Name" id="usernsme" required>
             </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
           </form>
-          <form action="" class="signup">
+          <form action="" class="signup">{% csrf_token %}
             <div class="field">
               <input type="text" placeholder="Email Address" required>
             </div>
