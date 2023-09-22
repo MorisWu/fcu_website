@@ -18,7 +18,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect('login/')
+    return HttpResponseRedirect('')
 
 def regist(request):
     return render(request, 'login_regist_page/index.html')
