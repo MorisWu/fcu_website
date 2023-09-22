@@ -18,5 +18,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.login_regist)
+    path('', views.login),
+    path('login/', views.login),
+    path('regist/', views.regist)
 ]
