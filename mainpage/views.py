@@ -13,7 +13,7 @@ def mainpage(request):
 
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
-    for i in grouped['application_start_date']:
+    for i in grouped.size():
         data_list.append(i)
 
     return render(request,
