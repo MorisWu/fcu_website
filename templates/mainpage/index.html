@@ -2,18 +2,10 @@
 <head></head>
 <body>
 <div class = "container">
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">選取</label>
-        </div>
-        <select class="custom-select" id="inputGroupSelect01">
-            <option selected>選擇...</option>
-            {% for data in data_list  %}
-                {% for j in data  %}
-                    <option selected>{{ j.user_name }}</option>
-                {% endfor %}
-            {% endfor %}
-        </select>
-    </div>
+    {% for data in data_list  %}
+        {% for j in data  %}
+            <p>{{ j.user_name }}</p>
+        {% endfor %}
+    {% endfor %}
 </div>
 </body>
