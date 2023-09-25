@@ -23,7 +23,7 @@
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="" class="login" method="post">{% csrf_token %}
+          <form action="" class="login" method="post">
             <div class="field">
               <input type="text" placeholder="User Name" id="usernsme" required>
             </div>
@@ -32,10 +32,11 @@
             </div>
             <div class="field btn">
               <div class="btn-layer"></div>
+              {% csrf_token %}
               <input type="submit" value="Login">
             </div>
           </form>
-          <form action="" class="signup">{% csrf_token %}
+          <form action="" class="signup">
             <div class="field">
               <input type="text" placeholder="Email Address" required>
             </div>
@@ -47,6 +48,7 @@
             </div>
             <div class="field btn">
               <div class="btn-layer"></div>
+              {% csrf_token %}
               <input type="submit" value="Signup">
             </div>
           </form>
