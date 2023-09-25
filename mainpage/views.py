@@ -9,4 +9,5 @@ def mainpage(request):
 
     return render(request,
                   'mainpage/index.html',
-                  {'data_list':data_list}, data_type)
+                  {'data_list':data_list,
+                   'type_list':[data_type]})

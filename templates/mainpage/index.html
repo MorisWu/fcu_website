@@ -1,7 +1,9 @@
 <html>
 <head></head>
 <body>
-<p>{% data_type %}</p>
+{% for data in type_list %}
+    <p>{{ data }}</p>
+{% endfor %}
 <table>
     <thead>
         <tr>
