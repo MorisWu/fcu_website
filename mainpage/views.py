@@ -9,6 +9,7 @@ def mainpage(request):
     location_group = pd_data.groupby('location_name')
     application_group = location_group.get_group('3ds Max 2022')
 
+    application_group['application_start_date'] = pd.to_datetime(application_group['application_start_date'], format='%Y%m%d')
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
     key_list = []
@@ -21,8 +22,7 @@ def mainpage(request):
 
     data_list = zip(key_list, num_list)
 
+    context = {'data_list':data_list}
+
     return render(request,
-                  'mainpage/index.html',
-                  {
-                    'data_list':data_list
-                  })
+                  'mainpage/index.html', context)
