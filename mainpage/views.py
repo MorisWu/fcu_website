@@ -11,7 +11,9 @@ def mainpage(request):
 
     data_list = []
 
-    application_group['application_start_date'] = application_group['application_start_date'].date
+    for i in application_group['application_start_date']:
+        i = application_group['application_start_date'].date
+
     date_group = application_group.groupby('application_start_date')
 
     data_list.append(date_group.size())
