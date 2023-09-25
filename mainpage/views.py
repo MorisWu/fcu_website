@@ -5,9 +5,9 @@ import pandas as pd
 def mainpage(request):
     raw_data = citrix_log.objects.all()
     data_list = list(raw_data)
-    data_type = type(data_list)
+    data_type = str(type(data_list))
 
     return render(request,
                   'mainpage/index.html',
                   {'data_list':data_list,
-                   'type_list':['data_type']})
+                   'type_list':[data_type]})
