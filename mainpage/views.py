@@ -10,4 +10,4 @@ def mainpage(request):
 
     return render(request,
                   'mainpage/index.html',
-                  {'data_list':location_group})
+                  {'data_list':location_group.size()})
