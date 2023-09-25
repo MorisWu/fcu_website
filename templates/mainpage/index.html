@@ -1,6 +1,7 @@
 <html>
 <head></head>
 <body>
+<p>{{ data_type }}</p>
 <table>
     <thead>
         <tr>
@@ -10,10 +11,6 @@
         </tr>
     </thead>
     <tbody>
-        {%for i in type %}
-        <p>i</p>
-        {% endfor %}
-
         {% for data in data_list %}
         <tr>
             <td>{{ data.location_name }}</td>
