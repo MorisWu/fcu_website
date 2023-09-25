@@ -9,7 +9,7 @@ def mainpage(request):
     pd_data = pd.DataFrame(list(raw_data.values()))
 
     location_group = pd_data.groupby('location_name')
-    application_group = location_group.get_group('3ds Max 2022')
+    application_group = location_group.get_group('校務系統')
 
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
@@ -33,7 +33,7 @@ def mainpage(request):
             ),
         ],
         layout=go.Layout(
-            title="3ds Max 2022",
+            title="校務系統",
             yaxis_title="num",
             xaxis_title = "date"
         )
