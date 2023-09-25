@@ -1,23 +1,16 @@
 <html>
 <head></head>
 <body>
-{% for data in type_list %}
-    <p>{{ data }}</p>
-{% endfor %}
 <table>
     <thead>
         <tr>
-            <th>location_name</th>
-            <th>user_name</th>
-            <th>user_ip</th>
+            <th>test</th>
         </tr>
     </thead>
     <tbody>
         {% for data in data_list %}
-        <tr>
-            <td>{{ data.location_name }}</td>
-            <td>{{ data.user_name }}</td>
-            <td>{{ data.user_ip }}</td>
+        <tr></tr>
+            <td>{{ data }}</td>
         </tr>
         {% endfor %}
     </tbody>
