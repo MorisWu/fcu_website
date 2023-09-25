@@ -9,7 +9,7 @@ def mainpage(request):
     pd_data = pd.DataFrame(list(raw_data.values()))
 
     location_group = pd_data.groupby('location_name')
-    application_group = location_group.get_group('Fluent 2021 R2')
+    application_group = location_group.get_group('3ds Max 2022')
 
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
