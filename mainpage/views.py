@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from database_model.models import citrix_log
 import pandas as pd
+import datetime
 
 def mainpage(request):
     raw_data = citrix_log.objects.all()
@@ -11,8 +12,10 @@ def mainpage(request):
 
     data_list = []
 
+
+
     for i in application_group['application_start_date']:
-        data_list.append(i)
+        data_list.append(i.date)
 
     return render(request,
                   'mainpage/index.html',
