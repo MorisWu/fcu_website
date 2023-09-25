@@ -9,9 +9,9 @@ def mainpage(request):
     pd_data = pd.DataFrame(list(raw_data.values()))
 
     location_group = pd_data.groupby('location_name')
-
+    app = '0000'
     if 'application' in request.POST and request.POST['application'] != '':
-        pass
+        app = request.POST['application']
     application_group = location_group.get_group('校務系統')
 
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
@@ -45,6 +45,7 @@ def mainpage(request):
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'data_list':data_list,
-               'bar':bar_div}
+               'bar':bar_div,
+               'app_name':[app]}
 
     return render(request,'mainpage/index.html', context)
