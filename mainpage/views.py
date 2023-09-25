@@ -11,14 +11,10 @@ def mainpage(request):
 
     data_list = []
 
-    for i in application_group['application_start_date']:
-        i = i.date
+    grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
-    date_group = application_group.groupby('application_start_date')
-
-    data_list.append(date_group.size())
-
-
+    for i in grouped['application_start_date']:
+        data_list.append(i)
 
     return render(request,
                   'mainpage/index.html',
