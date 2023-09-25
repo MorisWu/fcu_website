@@ -14,7 +14,7 @@ def login(request):
         auth.login(request, user)
         return HttpResponseRedirect('/mainpage/')
     else:
-        return render(request, 'login_regist_page/index.html', locals())
+        return render(request, 'login_regist_page/index.html')
 
 def logout(request):
     auth.logout(request)
