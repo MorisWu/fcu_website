@@ -6,8 +6,10 @@
     {% for i in app_name %}
         <p>{{i}}</p>
     {% endfor %}
-    {% csrf_token %}
+
+
     <form method="post">
+        {% csrf_token %}
         <select name="application">
             <option value="3ds Max 2022">3ds Max 2022</option>
             <option value="校務系統">校務系統</option>
