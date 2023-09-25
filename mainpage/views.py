@@ -14,7 +14,7 @@ def mainpage(request):
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
     for i in grouped.groups.keys():
-        data_list.append(i)
+        data_list.append(str(i)+'123')
 
     return render(request,
                   'mainpage/index.html',
