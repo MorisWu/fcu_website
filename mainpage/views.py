@@ -34,7 +34,7 @@ def mainpage(request):
             ),
         ],
         layout=go.Layout(
-            title="Bar Chart",
+            title="3ds Max 2022",
             yaxis_title="num",
             xaxis_title = "date"
         )
