@@ -19,9 +19,10 @@ def mainpage(request):
     for i in grouped.size():
         num_list.append(i)
 
+    data_list = zip(key_list, num_list)
+
     return render(request,
                   'mainpage/index.html',
                   {
-                    'key_list':key_list,
-                    'num_list':num_list
+                    'data_list':data_list
                   })
