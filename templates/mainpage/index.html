@@ -9,12 +9,12 @@
 
 
     <form method="post">
-        {% csrf_token %}
         <select name="application">
             <option value="3ds Max 2022">3ds Max 2022</option>
             <option value="校務系統">校務系統</option>
             <option value="Workbench 2022 R2">Workbench 2022 R2</option>
         </select>
+        {% csrf_token %}
         <input type="submit" value="search">
     </form>
      {% autoescape off %}
