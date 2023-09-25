@@ -8,8 +8,10 @@
         </div>
         <select class="custom-select" id="inputGroupSelect01">
             <option selected>選擇...</option>
-            {% for i in data_list  %}
-            <option selected>{{ i.user_name }}</option>
+            {% for data in data_list  %}
+                {% for j in data  %}
+                    <option selected>{{ j.user_name }}</option>
+                {% endfor %}
             {% endfor %}
         </select>
     </div>
