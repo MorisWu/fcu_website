@@ -9,10 +9,12 @@ def mainpage(request):
     pd_data = pd.DataFrame(list(raw_data.values()))
 
     location_group = pd_data.groupby('location_name')
-    app = '0000'
+    app = '校務系統'
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
-    application_group = location_group.get_group('校務系統')
+
+
+    application_group = location_group.get_group(app)
 
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
@@ -36,7 +38,7 @@ def mainpage(request):
             ),
         ],
         layout=go.Layout(
-            title="校務系統",
+            title=app,
             yaxis_title="num",
             xaxis_title = "date"
         )
