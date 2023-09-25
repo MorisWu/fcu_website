@@ -6,7 +6,6 @@ def mainpage(request):
     raw_data = citrix_log.objects.all()
     data_list = list(raw_data)
 
-    pd_data = pd.DataFrame.from_records(raw_data)
-    pd_data['application_start_date'] = pd.to_datetime(pd_data['application_start_date'])
 
-    return render(request, 'mainpage/index.html', {'data_list':data_list})
+
+    return render(request, 'mainpage/index.html', {'data_list':data_list, 'type':type(raw_data)})
