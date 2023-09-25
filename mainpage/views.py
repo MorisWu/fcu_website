@@ -12,7 +12,7 @@ def mainpage(request):
     data_list = []
 
     for i in application_group['application_start_date']:
-        i = application_group['application_start_date'].date
+        i = i.date
 
     date_group = application_group.groupby('application_start_date')
 
