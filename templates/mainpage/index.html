@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for key, num in key_list, num_list %}
+        {% for key, num in zip(key_list, num_list) %}
         <tr></tr>
             <td>{{ data }}</td>
             <td>{{ num }}</td>
