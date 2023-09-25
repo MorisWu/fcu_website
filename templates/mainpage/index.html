@@ -1,20 +1,7 @@
 <html>
 <head></head>
 <body>
-<table>
-    <thead>
-        <tr>
-            <th>date</th>
-            <th>num</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for key, num in data_list %}
-        <tr></tr>
-            <td>{{ key }}</td>
-            <td>{{ num }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+     {% autoescape off %}
+        {{ bar }}
+     {% endautoescape %}
 </body>

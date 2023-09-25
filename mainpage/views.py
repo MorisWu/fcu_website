@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from database_model.models import citrix_log
 import pandas as pd
+import plotly.offline as opy
+import plotly.graph_objs as go
 
 def mainpage(request):
     raw_data = citrix_log.objects.all()
@@ -22,7 +24,25 @@ def mainpage(request):
 
     data_list = zip(key_list, num_list)
 
-    context = {'data_list':data_list}
+    trace = go.Figure(
+        data=[
+            go.Bar(
+                name="test",
+                x=key_list,
+                y=num_list,
+                offsetgroup=0,
+            ),
+        ],
+        layout=go.Layout(
+            title="Bar Chart",
+            yaxis_title="num",
+            xaxis_title = "date"
+        )
+    )
 
-    return render(request,
-                  'mainpage/index.html', context)
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+    context = {'data_list':data_list,
+               'bar':bar_div}
+
+    return render(request,'mainpage/index.html', context)
