@@ -3,11 +3,13 @@
     <title>mainpage</title>
 </head>
 <body>
-    <select name="application" method="post">
-        <option value="3ds Max 2022">3ds Max 2022</option>
-        <option value="校務系統">校務系統</option>
-        <option value="Workbench 2022 R2">Workbench 2022 R2</option>
-    </select>
+    <form method="post">
+        <select name="application">
+            <option value="3ds Max 2022">3ds Max 2022</option>
+            <option value="校務系統">校務系統</option>
+            <option value="Workbench 2022 R2">Workbench 2022 R2</option>
+        </select>
+    </form>
      {% autoescape off %}
         {{ bar }}
      {% endautoescape %}
