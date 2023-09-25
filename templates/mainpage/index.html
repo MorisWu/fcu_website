@@ -4,13 +4,15 @@
 <table>
     <thead>
         <tr>
-            <th>test</th>
+            <th>date</th>
+            <th>num</th>
         </tr>
     </thead>
     <tbody>
-        {% for data in data_list %}
+        {% for key, num in key_list, num_list %}
         <tr></tr>
             <td>{{ data }}</td>
+            <td>{{ num }}</td>
         </tr>
         {% endfor %}
     </tbody>
