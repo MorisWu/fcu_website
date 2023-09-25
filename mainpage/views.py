@@ -9,6 +9,9 @@ def mainpage(request):
     pd_data = pd.DataFrame(list(raw_data.values()))
 
     location_group = pd_data.groupby('location_name')
+
+    if 'application' in request.POST and request.POST['application'] != '':
+        pass
     application_group = location_group.get_group('校務系統')
 
     grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
