@@ -11,8 +11,8 @@ def mainpage(request):
 
     data_list = []
 
-    for i in application_group:
-        data_list.append(i['application_start_date'])
+    for i in application_group['application_start_date']:
+        data_list.append(i)
 
     return render(request,
                   'mainpage/index.html',
