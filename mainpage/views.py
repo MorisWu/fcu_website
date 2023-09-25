@@ -7,8 +7,7 @@ def mainpage(request):
     data_list = list(raw_data)
     data_type = type(raw_data)
 
-
     return render(request,
                   'mainpage/index.html',
                   {'data_list':data_list,
-                   'type':data_type})
+                            'type':data_type})

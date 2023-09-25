@@ -10,7 +10,10 @@
         </tr>
     </thead>
     <tbody>
-        <p>{% type %}</p>
+        {%for i in type %}
+        <p>i.type</p>
+        {% endfor %}
+
         {% for data in data_list %}
         <tr>
             <td>{{ data.location_name }}</td>
