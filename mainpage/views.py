@@ -33,7 +33,7 @@ def mainpage(request):
     trace = go.Figure(
         data=[
             go.Bar(
-                name="test",
+                name = "test",
                 x=key_list,
                 y=num_list,
                 offsetgroup=0,
@@ -41,8 +41,10 @@ def mainpage(request):
         ],
         layout=go.Layout(
             title=app,
-            yaxis_title="num",
-            xaxis_title = "date"
+            yaxis_title = "num",
+            xaxis_title = "date",
+            width = 1000,
+            height = 500
         )
     )
 
