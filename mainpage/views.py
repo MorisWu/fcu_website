@@ -48,8 +48,6 @@ def mainpage(request):
         )
     )
 
-    trace.update_xaxes(tickformatstops=[dict(dtickrange=[None, 86400000], dtick=86400000)])
-
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'data_list':data_list,
