@@ -51,7 +51,7 @@ def mainpage(request):
     trace.update_layout(
         autosize=True,
         # 设置x轴的范围
-        xaxis=dict(range=[0, 100])
+        xaxis=dict(range=[6000, 10000])
     )
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
