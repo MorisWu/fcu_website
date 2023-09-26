@@ -18,9 +18,7 @@ def mainpage(request):
         app = request.POST['application']
 
 
-    application_group = location_group.get_group(app)
-
-    grouped = application_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
+    grouped = location_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
     key_list = []
     num_list = []
