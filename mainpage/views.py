@@ -48,6 +48,12 @@ def mainpage(request):
         )
     )
 
+    trace.update_layout(
+        autosize=True,
+        # 设置x轴的范围
+        xaxis=dict(range=[0, 100])
+    )
+
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'data_list':data_list,
