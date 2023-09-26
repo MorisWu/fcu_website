@@ -3,8 +3,13 @@ from database_model.models import citrix_log
 import pandas as pd
 import plotly.offline as opy
 import plotly.graph_objs as go
+from django.http import HttpResponseRedirect
 
 def mainpage(request):
+
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
+
     raw_data = citrix_log.objects.all()
     pd_data = pd.DataFrame(list(raw_data.values()))
 
