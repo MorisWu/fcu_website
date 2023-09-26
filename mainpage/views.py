@@ -12,13 +12,13 @@ def mainpage(request):
 
     app = '校務系統'
 
-    location_group = citrix_log.objects.filter(location_name = app)
-
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
+    location_group = citrix_log.objects.filter(location_name=app)
+    pd_data = pd.DataFrame(list(location_group.values()))
 
-    grouped = location_group.groupby(pd.Grouper(key='application_start_date', freq='D'))
+    grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
     key_list = []
     num_list = []
