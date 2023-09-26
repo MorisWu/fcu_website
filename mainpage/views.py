@@ -30,13 +30,6 @@ def mainpage(request):
 
     data_list = zip(key_list, num_list)
 
-    # 每次显示的数据点数量
-    data_points_per_slice = 4
-
-    # 初始显示的数据切片
-    start_index = 0
-    end_index = start_index + data_points_per_slice
-
     trace = go.Figure(
         data=[
             go.Bar(
@@ -50,7 +43,6 @@ def mainpage(request):
             title=app,
             yaxis_title = "num",
             xaxis_title = "date",
-            xaxis=key_list[start_index, end_index],
             width = 1500,
             height = 750
         )
