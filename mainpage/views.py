@@ -10,11 +10,10 @@ def mainpage(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
 
-    raw_data = citrix_log.objects.all()
-    pd_data = pd.DataFrame(list(raw_data.values()))
-
-    location_group = pd_data.groupby('location_name')
     app = '校務系統'
+
+    location_group = citrix_log.objects.filter(location_name = app)
+
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
