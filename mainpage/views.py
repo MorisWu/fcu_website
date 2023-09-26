@@ -18,7 +18,7 @@ def mainpage(request):
     location_group = citrix_log.objects.filter(location_name=app)
     pd_data = pd.DataFrame(list(location_group.values()))
 
-    grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='10min'))
+    grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='H'))
 
     key_list = []
     num_list = []
@@ -43,12 +43,12 @@ def mainpage(request):
             title=app,
             yaxis_title = "num",
             xaxis_title = "date",
-            width = 1000,
-            height = 500
+            width = 1500,
+            height = 750
         )
     )
 
-    trace.update_xaxes(fixedrange=True)
+    trace.update_xaxes(tickformatstops=[dict(dtickrange=[None, 86400000], dtick=86400000)])
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
