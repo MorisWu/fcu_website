@@ -18,7 +18,7 @@ def mainpage(request):
     location_group = citrix_log.objects.filter(location_name=app)
     pd_data = pd.DataFrame(list(location_group.values()))
 
-    grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='H'))
+    grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
     key_list = []
     num_list = []
