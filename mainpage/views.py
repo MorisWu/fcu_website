@@ -41,7 +41,7 @@ def mainpage(request):
         ],
         layout=go.Layout(
             title=app,
-            yaxis_title = "num",
+            yaxis_title = "number",
             xaxis_title = "date",
             width = 1500,
             height = 750
