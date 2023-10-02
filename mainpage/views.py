@@ -60,4 +60,4 @@ def citrix_log_page(request):
                'bar':bar_div,
                'app_name':[app]}
 
-    return render(request,'mainpage/index.html', context)
+    return render(request,'citrix_log_page/index.html', context)
