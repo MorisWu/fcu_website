@@ -41,24 +41,26 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
         }
 
         /* 按钮样式与分区颜色协调 */
         .button {
-            padding: 10px 20px;
-            margin: 5px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             color: #FFFFFF;
-            background-color: rgba(255, 255, 255, 0.3); /* 半透明的按钮背景色 */
+            background-color: rgba(255, 255, 255, 0.3); /* 初始半透明的按钮背景色 */
             transition: background-color 0.3s, transform 0.3s;
         }
 
         /* 按钮悬浮效果 */
         .button:hover {
-            background-color: rgba(255, 255, 255, 0.6); /* 悬浮时更明显的半透明效果 */
+            background-color: rgba(255, 255, 255, 0.8); /* 悬浮时更明显的半透明效果 */
             transform: scale(1.05); /* 放大按钮 */
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         /* 链接样式 */
@@ -70,6 +72,12 @@
             display: block;
             text-align: center;
         }
+
+        /* 每个按钮的位置 */
+        .section .button:nth-child(1) { grid-row: 1 / 2; grid-column: 1 / 2; background-color: #FF6347; } /* 红色 */
+        .section .button:nth-child(2) { grid-row: 1 / 2; grid-column: 2 / 3; background-color: #32CD32; } /* 绿色 */
+        .section .button:nth-child(3) { grid-row: 2 / 3; grid-column: 1 / 2; background-color: #4169E1; } /* 蓝色 */
+        .section .button:nth-child(4) { grid-row: 2 / 3; grid-column: 2 / 3; background-color: #9932CC; } /* 紫色 */
     </style>
 </head>
 <body>
@@ -78,11 +86,14 @@
         <div class="section section1">
             <button class="button">按钮1</button>
             <button class="button">按钮2</button>
+            <button class="button">按钮3</button>
+            <button class="button">按钮4</button>
         </div>
         <div class="section section2">
             <button class="button">按钮1</button>
             <button class="button">按钮2</button>
             <button class="button">按钮3</button>
+            <button class="button">按钮4</button>
         </div>
         <div class="section section3">
             <button class="button">按钮1</button>
@@ -91,11 +102,10 @@
             <button class="button">按钮4</button>
         </div>
         <div class="section section4">
-            <button class="button" onclick="location.href='citrix_log/'">按钮1</button>
+            <button class="button" onclick="location.href='citrix_log/'">citrix log</button>
             <button class="button">按钮2</button>
             <button class="button">按钮3</button>
             <button class="button">按钮4</button>
-            <button class="button">按钮5</button>
         </div>
     </div>
 </body>
