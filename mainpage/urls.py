@@ -18,5 +18,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.mainpage)
+    path('', views.mainpage),
+    path('citrix_log', views.citrix_log_page)
 ]

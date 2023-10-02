@@ -9,6 +9,12 @@ def mainpage(request):
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
+    else:
+        return render(request,'mainpage/index.html')
+
+def citrix_log_page(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
 
     app = '校務系統'
 
