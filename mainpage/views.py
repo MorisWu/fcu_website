@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
-import datetime
+from datetime import datetime
 
 def mainpage(request):
 
