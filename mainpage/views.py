@@ -93,8 +93,8 @@ def citrix_log_online(request):
 
         # 對每一行資料，更新相應時間點的人數
         for _, row in group.iterrows():
-            start_idx = (row['application_start_date'] - pd.Timestamp(date)).seconds // 60
-            end_idx = (row['application_end_date'] - pd.Timestamp(date)).seconds // 60
+            start_idx = (row['application_start_date'] - pd.Timestamp(date, tz='tz-naive')).seconds // 60
+            end_idx = (row['application_end_date'] - pd.Timestamp(date, tz='tz-naive')).seconds // 60
             concurrent_users[start_idx:end_idx] += 1
 
         # 計算當天最高同時在線人數
