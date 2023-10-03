@@ -12,7 +12,7 @@ def mainpage(request):
     else:
         return render(request,'mainpage/index.html')
 
-def citrix_log_page(request):
+def citrix_log_open(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
 
@@ -60,4 +60,4 @@ def citrix_log_page(request):
                'bar':bar_div,
                'app_name':[app]}
 
-    return render(request,'citrix_log_page/index.html', context)
+    return render(request,'citrix_log_page/open_amount.html', context)

@@ -19,5 +19,5 @@ from . import views
 
 urlpatterns = [
     path('', views.mainpage),
-    path('citrix_log/', views.citrix_log_page)
+    path('citrix_log/', views.citrix_log_open)
 ]
