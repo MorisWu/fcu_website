@@ -76,8 +76,8 @@ def citrix_log_online(request):
 
     open_end_time = pd_data[['application_start_date', 'application_end_date']]
 
-    open_end_time['application_start_date'] = pd.to_datetime(open_end_time['application_start_date'], format="%m/%d/%Y, %H:%M:%S")
-    open_end_time['application_end_date'] = pd.to_datetime(open_end_time['application_end_date'], format="%m/%d/%Y, %H:%M:%S")
+    open_end_time['application_start_date'] = pd.to_datetime(open_end_time['application_start_date'], format="%m %d %Y, %H:%M:%S")
+    open_end_time['application_end_date'] = pd.to_datetime(open_end_time['application_end_date'], format="%m %d %Y, %H:%M:%S")
 
     open_end_time['date'] = open_end_time['application_start_date'].dt.date
     open_end_time_grouped = open_end_time.groupby('date')
@@ -93,8 +93,8 @@ def citrix_log_online(request):
 
         # 對每一行資料，更新相應時間點的人數
         for _, row in group.iterrows():
-            start_idx = (row['application_start_date'] - date).seconds // 60
-            end_idx = (row['application_end_date'] - date).seconds // 60
+            start_idx = (row['application_start_date'].datetime() - date).seconds // 60
+            end_idx = (row['application_end_date'].datetime() - date).seconds // 60
             concurrent_users[start_idx:end_idx] += 1
 
         # 計算當天最高同時在線人數
