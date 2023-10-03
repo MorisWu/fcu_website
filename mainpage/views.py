@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
+import pytz
 
 def mainpage(request):
 
@@ -76,8 +77,9 @@ def citrix_log_online(request):
 
     open_end_time = pd_data[['application_start_date', 'application_end_date']]
 
-    open_end_time['application_start_date'] = pd.to_datetime(open_end_time['application_start_date'], format="%m %d %Y, %H:%M:%S")
-    open_end_time['application_end_date'] = pd.to_datetime(open_end_time['application_end_date'], format="%m %d %Y, %H:%M:%S")
+    taipei_timezone = pytz.timezone('Asia/Taipei')
+    open_end_time['application_start_date'] = open_end_time['application_start_date'].dt.tz_localize(tz='UTC').dt.tz_convert(tz=taipei_timezone)
+    open_end_time['application_end_date'] = open_end_time['application_end_date'].dt.tz_localize(tz='UTC').dt.tz_convert(tz=taipei_timezone)
 
     open_end_time['date'] = open_end_time['application_start_date'].dt.date
     open_end_time_grouped = open_end_time.groupby('date')
@@ -93,8 +95,8 @@ def citrix_log_online(request):
 
         # 對每一行資料，更新相應時間點的人數
         for _, row in group.iterrows():
-            start_idx = (row['application_start_date'] - pd.Timestamp(date, tzinfo='tz-naive')).seconds // 60
-            end_idx = (row['application_end_date'] - pd.Timestamp(date, tzinfo='tz-naive')).seconds // 60
+            start_idx = (row['application_start_date'] - pd.Timestamp(date)).seconds // 60
+            end_idx = (row['application_end_date'] - pd.Timestamp(date)).seconds // 60
             concurrent_users[start_idx:end_idx] += 1
 
         # 計算當天最高同時在線人數
