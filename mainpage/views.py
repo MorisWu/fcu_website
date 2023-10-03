@@ -77,33 +77,17 @@ def citrix_log_online(request):
 
     open_end_time = pd_data[['application_start_date', 'application_end_date']]
 
-    taipei_timezone = pytz.timezone('Asia/Taipei')
-    open_end_time['application_start_date'] = open_end_time['application_start_date'].dt.tz_localize(tz='UTC').dt.tz_convert(tz=taipei_timezone)
-    open_end_time['application_end_date'] = open_end_time['application_end_date'].dt.tz_localize(tz='UTC').dt.tz_convert(tz=taipei_timezone)
+    open_end_time['application_start_date'] = open_end_time['application_start_date']
+    open_end_time['application_end_date'] = open_end_time['application_end_date']
 
     open_end_time['date'] = open_end_time['application_start_date'].dt.date
     open_end_time_grouped = open_end_time.groupby('date')
 
-    max_concurrent_users = []
+    max_online = open_end_time_grouped.apply(
+        lambda x: x.apply(lambda y: ((x['application_start_date'] <= y['application_start_date']) & (x['application_end_date'] >= y['application_end_date'])).sum(),
+                          axis=1).max())
 
-    for date, group in open_end_time_grouped:
-        # 創建一個時間範圍，包含當天的所有時間點
-        time_range = pd.date_range(start=date, end=date + pd.DateOffset(days=1), freq='T')
-
-        # 初始化當天每個時間點的人數為0
-        concurrent_users = [0] * len(time_range)
-
-        # 對每一行資料，更新相應時間點的人數
-        for _, row in group.iterrows():
-            start_idx = (row['application_start_date'] - pd.Timestamp(date)).seconds // 60
-            end_idx = (row['application_end_date'] - pd.Timestamp(date)).seconds // 60
-            concurrent_users[start_idx:end_idx] += 1
-
-        # 計算當天最高同時在線人數
-        max_concurrent = max(concurrent_users)
-        max_concurrent_users.append({'date': date, 'max_people': max_concurrent})
-
-    result_df = pd.DataFrame(max_concurrent_users)
+    result_df = pd.DataFrame({'date': max_online.index, 'max_amount': max_online.values})
     result_df = result_df.sort_values(by='date')
 
     trace = go.Figure(
@@ -111,7 +95,7 @@ def citrix_log_online(request):
             go.Bar(
                 name="test",
                 x=result_df['date'],
-                y=result_df['max_people'],
+                y=result_df['max_amount'],
                 offsetgroup=0,
             ),
         ],
