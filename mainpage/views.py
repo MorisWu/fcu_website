@@ -112,4 +112,4 @@ def citrix_log_online(request):
     context = {'bar': bar_div,
                'app_name': [app]}
 
-    return render(request, 'citrix_log_page/open_amount.html', context)
+    return render(request, 'citrix_log_page/online_amount.html', context)
