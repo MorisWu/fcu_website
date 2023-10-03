@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
+import datetime
 
 def mainpage(request):
 
@@ -90,11 +91,12 @@ def citrix_log_online(request):
 
         # 初始化當天每個時間點的人數為0
         concurrent_users = [0] * len(time_range)
+        zero_time = datetime.min.time()
 
         # 對每一行資料，更新相應時間點的人數
         for _, row in group.iterrows():
-            start_idx = (row['application_start_date'].to_pydatetime() - date.to_pydatetime()).seconds // 60
-            end_idx = (row['application_end_date'].to_pydatetime() - date.to_pydatetime()).seconds // 60
+            start_idx = (row['application_start_date'].to_pydatetime() - datetime.combine(date, zero_time)).seconds // 60
+            end_idx = (row['application_end_date'].to_pydatetime() - datetime.combine(date, zero_time)).seconds // 60
             concurrent_users[start_idx:end_idx] += 1
 
         # 計算當天最高同時在線人數
