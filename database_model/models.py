@@ -15,3 +15,13 @@ class citrix_log(models.Model):
     application_id = models.CharField(max_length=100) #origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[ApplicationInstance].ApplicationId
     session_user_id = models.CharField(max_length=100) #origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[Session].UserId
     application_sessionkey = models.CharField(max_length=100)#origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[ApplicationInstance].SessionKey
+
+class pre_process_online_amount_data(models.Model):
+    application_name = models.CharField(max_length=50)
+    date = models.DateTimeField(null = True)
+    amount = models.IntegerField(null=True)
+
+class pre_process_date_usage_amount_data(models.Model):
+    application_name = models.CharField(max_length=50)
+    date = models.DateTimeField(null = True)
+    amount = models.IntegerField(null=True)
