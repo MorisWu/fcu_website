@@ -84,7 +84,12 @@ DATABASES = {
         'USER': 'rayraychang',
         'PASSWORD': '0123456789@@',
         'HOST': 'rayraychang.mysql.pythonanywhere-services.com',
+        'OPTIONS':{
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4'
+        }
     }
+
 }
 
 
