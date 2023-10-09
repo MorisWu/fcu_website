@@ -82,44 +82,78 @@ def citrix_log_open(request):
     location_group = citrix_log.objects.filter(location_name=app)
     pd_data = pd.DataFrame(list(location_group.values()))
 
-    grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='D'))
+    try:
+        grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='D'))
 
-    key_list = []
-    num_list = []
-    for i in grouped.groups.keys():
-        key_list.append(i)
+        key_list = []
+        num_list = []
+        for i in grouped.groups.keys():
+            key_list.append(i)
 
-    for i in grouped.size():
-        num_list.append(i)
+        for i in grouped.size():
+            num_list.append(i)
 
-    data_list = zip(key_list, num_list)
+        data_list = zip(key_list, num_list)
 
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name = "test",
-                x=key_list,
-                y=num_list,
-                offsetgroup=0,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title = "number",
-            xaxis_title = "date",
-            width = 1500,
-            height = 750
+        trace = go.Figure(
+            data=[
+                go.Bar(
+                    name="test",
+                    x=key_list,
+                    y=num_list,
+                    offsetgroup=0,
+                ),
+            ],
+            layout=go.Layout(
+                title=app,
+                yaxis_title="number",
+                xaxis_title="date",
+                width=1500,
+                height=750
+            )
         )
-    )
 
-    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+        bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
-    context = {'data_list':data_list,
-               'bar':bar_div,
-               'app_name':[app],
-               'app_list':application_list}
+        context = {'data_list': data_list,
+                   'bar': bar_div,
+                   'app_name': [app],
+                   'app_list': application_list}
 
-    return render(request,'citrix_log_page/open_amount.html', context)
+        return render(request, 'citrix_log_page/open_amount.html', context)
+
+    except:
+        key_list = []
+        num_list = []
+
+        data_list = zip(key_list, num_list)
+
+        trace = go.Figure(
+            data=[
+                go.Bar(
+                    name="test",
+                    x=key_list,
+                    y=num_list,
+                    offsetgroup=0,
+                ),
+            ],
+            layout=go.Layout(
+                title=app,
+                yaxis_title="number",
+                xaxis_title="date",
+                width=1500,
+                height=750
+            )
+        )
+
+        bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+        context = {'data_list': data_list,
+                   'bar': bar_div,
+                   'app_name': [app],
+                   'app_list': application_list}
+
+        return render(request, 'citrix_log_page/open_amount.html', context)
 
 def citrix_log_online(request):
     if not request.user.is_authenticated:
@@ -135,43 +169,73 @@ def citrix_log_online(request):
     location_group = citrix_log.objects.filter(location_name=app)
     pd_data = pd.DataFrame(list(location_group.values()))
 
-    open_end_time = pd_data[['application_start_date', 'application_end_date']]
+    try:
+        open_end_time = pd_data[['application_start_date', 'application_end_date']]
 
-    open_end_time['application_start_date'] = open_end_time['application_start_date']
-    open_end_time['application_end_date'] = open_end_time['application_end_date']
+        open_end_time['application_start_date'] = open_end_time['application_start_date']
+        open_end_time['application_end_date'] = open_end_time['application_end_date']
 
-    open_end_time['date'] = open_end_time['application_start_date'].dt.date
-    open_end_time_grouped = open_end_time.groupby('date')
+        open_end_time['date'] = open_end_time['application_start_date'].dt.date
+        open_end_time_grouped = open_end_time.groupby('date')
 
-    max_online = open_end_time_grouped.apply(
-        lambda x: x.apply(lambda y: ((x['application_start_date'] <= y['application_start_date']) & (x['application_end_date'] >= y['application_end_date'])).sum(),
-                          axis=1).max())
+        max_online = open_end_time_grouped.apply(
+            lambda x: x.apply(lambda y: ((x['application_start_date'] <= y['application_start_date']) & (
+                        x['application_end_date'] >= y['application_end_date'])).sum(),
+                              axis=1).max())
 
-    result_df = pd.DataFrame({'date': max_online.index, 'max_amount': max_online.values})
-    result_df = result_df.sort_values(by='date')
+        result_df = pd.DataFrame({'date': max_online.index, 'max_amount': max_online.values})
+        result_df = result_df.sort_values(by='date')
 
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name="test",
-                x=result_df['date'],
-                y=result_df['max_amount'],
-                offsetgroup=0,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title="number",
-            xaxis_title="date",
-            width=1500,
-            height=750
+        trace = go.Figure(
+            data=[
+                go.Bar(
+                    name="test",
+                    x=result_df['date'],
+                    y=result_df['max_amount'],
+                    offsetgroup=0,
+                ),
+            ],
+            layout=go.Layout(
+                title=app,
+                yaxis_title="number",
+                xaxis_title="date",
+                width=1500,
+                height=750
+            )
         )
-    )
 
-    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+        bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
-    context = {'bar': bar_div,
-               'app_name': [app],
-               'app_list':application_list}
+        context = {'bar': bar_div,
+                   'app_name': [app],
+                   'app_list': application_list}
 
-    return render(request, 'citrix_log_page/online_amount.html', context)
+        return render(request, 'citrix_log_page/online_amount.html', context)
+    except:
+        trace = go.Figure(
+            data=[
+                go.Bar(
+                    name="test",
+                    x=[],
+                    y=[],
+                    offsetgroup=0,
+                ),
+            ],
+            layout=go.Layout(
+                title=app,
+                yaxis_title="number",
+                xaxis_title="date",
+                width=1500,
+                height=750
+            )
+        )
+
+        bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+        context = {'bar': bar_div,
+                   'app_name': [app],
+                   'app_list': application_list}
+
+        return render(request, 'citrix_log_page/online_amount.html', context)
+
+
