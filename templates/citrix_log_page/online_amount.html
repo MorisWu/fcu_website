@@ -6,9 +6,9 @@
     <h1>每日軟體最高同時使用人次</h1>
     <form method="post">
         <select name="application">
-            <option value="3ds Max 2022">3ds Max 2022</option>
-            <option value="校務系統">校務系統</option>
-            <option value="Workbench 2022 R2">Workbench 2022 R2</option>
+            {% for app in app_list %}
+            <option value = {{app}}>{{app}}</option>
+            {% endfor %}
         </select>
         {% csrf_token %}
         <input type="submit" value="search">
