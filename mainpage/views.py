@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from database_model.models import citrix_log
+from database_model.models import citrix_log, pre_process_online_amount_data, pre_process_date_usage_amount_data
 import pandas as pd
 import plotly.offline as opy
 import plotly.graph_objs as go
@@ -117,7 +117,7 @@ def citrix_log_open(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_data = citrix_log.objects.filter(location_name=app)
+    application_data =  pre_process_date_usage_amount_data.objects.filter(location_name=app)
 
     date_list = []
     num_list = []
