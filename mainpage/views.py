@@ -119,12 +119,19 @@ def citrix_log_open(request):
 
     application_data = citrix_log.objects.filter(location_name=app)
 
+    date_list = []
+    num_list = []
+
+    for i in application_data:
+        date_list.append(i.date)
+        num_list.append(i.amount)
+
     trace = go.Figure(
             data=[
                 go.Bar(
                     name="test",
-                    x=application_data['date'],
-                    y=application_data['amount'],
+                    x=date_list,
+                    y=num_list,
                     offsetgroup=0,
                 ),
             ],
