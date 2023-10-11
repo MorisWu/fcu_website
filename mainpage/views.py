@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from database_model.models import citrix_log, pre_process_online_amount_data, pre_process_date_usage_amount_data
-import pandas as pd
+from database_model.models import pre_process_online_amount_data, pre_process_date_usage_amount_data, application_authorizations_num
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
@@ -147,9 +146,19 @@ def citrix_log_open(request):
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
+    auth_num = 0
+    try:
+        auth = application_authorizations_num.objects.filter(application_name=app)
+        for i in auth:
+            auth_num = i.amount
+    except:
+        auth_num = 0
+
     context = {'bar': bar_div,
                'app_name': [app],
-               'app_list': application_list}
+               'app_list': application_list,
+               'auth_num':[auth_num]
+               }
 
     return render(request, 'citrix_log_page/open_amount.html', context)
 
