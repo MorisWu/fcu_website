@@ -117,28 +117,14 @@ def citrix_log_open(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    location_group = citrix_log.objects.filter(location_name=app)
-    pd_data = pd.DataFrame(list(location_group.values()))
+    application_data = citrix_log.objects.filter(location_name=app)
 
-    try:
-        grouped = pd_data.groupby(pd.Grouper(key='application_start_date', freq='D'))
-
-        key_list = []
-        num_list = []
-        for i in grouped.groups.keys():
-            key_list.append(i)
-
-        for i in grouped.size():
-            num_list.append(i)
-
-        data_list = zip(key_list, num_list)
-
-        trace = go.Figure(
+    trace = go.Figure(
             data=[
                 go.Bar(
                     name="test",
-                    x=key_list,
-                    y=num_list,
+                    x=application_data['date'],
+                    y=application_data['amount'],
                     offsetgroup=0,
                 ),
             ],
@@ -151,47 +137,13 @@ def citrix_log_open(request):
             )
         )
 
-        bar_div = opy.plot(trace, auto_open=False, output_type='div')
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
-        context = {'data_list': data_list,
-                   'bar': bar_div,
-                   'app_name': [app],
-                   'app_list': application_list}
+    context = {'bar': bar_div,
+                'app_name': [app],
+                'app_list': application_list}
 
-        return render(request, 'citrix_log_page/open_amount.html', context)
-
-    except:
-        key_list = []
-        num_list = []
-
-        data_list = zip(key_list, num_list)
-
-        trace = go.Figure(
-            data=[
-                go.Bar(
-                    name="test",
-                    x=key_list,
-                    y=num_list,
-                    offsetgroup=0,
-                ),
-            ],
-            layout=go.Layout(
-                title=app,
-                yaxis_title="number",
-                xaxis_title="date",
-                width=1500,
-                height=750
-            )
-        )
-
-        bar_div = opy.plot(trace, auto_open=False, output_type='div')
-
-        context = {'data_list': data_list,
-                   'bar': bar_div,
-                   'app_name': [app],
-                   'app_list': application_list}
-
-        return render(request, 'citrix_log_page/open_amount.html', context)
+    return render(request, 'citrix_log_page/open_amount.html', context)
 
 def citrix_log_online(request):
     if not request.user.is_authenticated:
