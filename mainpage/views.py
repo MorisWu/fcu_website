@@ -6,105 +6,106 @@ import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
 
 application_list = [
-'3ds Max 2022',
-'ACL 16',
-'ACP 2022 R2',
-'Access',
-'Additive 2022 R2',
-'Adobe Acrobat X Pro',
-'Aqwa 2022 R2',
-'AqwaWave 2022 R2',
-'ArcGlobe 101',
-'ArcMap 101',
-'ArcScene 101',
-'Archicad 26',
-'AutoCAD 2022',
-'AutoCAD 2023',
-'CFD-Post 2022 R2',
-'CFX 2022 R2',
-'Cloudapp Online Usage',
-'DESIGN II',
-'Design Point Service DPS 2022 R2',
-'ETABS 2015',
-'EViews 11',
-'Ecotect Analysis 2011',
-'Excel',
-'FlexSim 2020',
-'FlexSim 2022',
-'FlexSim 2023',
-'Fluent 2021 R2',
-'Fluent 2022 R2',
-'Iexplore',
-'Inkscape',
-'Inventor 2022',
-'Inventor Professional 2023',
-'Kdenlive',
-'Krita',
-'LS-Run 2022 R2',
-'LabVIEW 2021 SP1',
-'LabVIEW 2023',
-'LibreOffice',
-'LibreOffice Base',
-'LibreOffice Calc',
-'LibreOffice Draw',
-'LibreOffice Impress',
-'MATLAB R2022b',
-'MATLAB R2023a',
-'Mechanical 2022 R2',
-'Mechanical APDL 2022 R2',
-'Mechanical APDL Product Launcher 2022 R2',
-'Minitab',
-'NI Multisim 141',
-'NI Ultiboard 141',
-'NX 85',
-'Navisworks Manage 2022',
-'Polarizer Surface Editor 2022 R2',
-'Polyflow 2022 R2',
-'PowerPoint',
-'Product & CAD Configuration 2022 R2',
-'RSM Job Monitoring 2022 R2',
-'RStudio',
-'Revit 2022',
-'Revit 2023',
-'Rhino 7',
-'SAP2000',
-'SAS 94 中文',
-'SAS 94 英文',
-'SAS Enterprise Guide 83',
-'SAS Enterprise Miner Workstation 152',
-'SAS Studio 381',
-'SOLIDWORKS 2016',
-'SPSS 18',
-'SPSS 21',
-'SPSS 22',
-'SPSS 23',
-'SPSS 24',
-'Sherlock 2022 R2',
-'Sherlock 3D Viewer 2022 R2',
-'SmartPLS 4',
-'SpaceClaim 2022 R2',
-'StataSE 18',
-'Statistics on Structures 2022 R2',
-'TEJPro',
-'VDI Online Usage',
-'Visio',
-'Word',
-'WorkFlow ERP GP 系統',
-'Workbench 2021 R2',
-'Workbench 2022 R2',
-'幼獅題庫命題系統107年',
-'校務系統',
-'校務系統練習區',
-'櫃台服務系統',
-'＊雲端校務123上課講義＊'
+    '3ds Max 2022',
+    'ACL 16',
+    'ACP 2022 R2',
+    'Access',
+    'Additive 2022 R2',
+    'Adobe Acrobat X Pro',
+    'Aqwa 2022 R2',
+    'AqwaWave 2022 R2',
+    'ArcGlobe 101',
+    'ArcMap 101',
+    'ArcScene 101',
+    'Archicad 26',
+    'AutoCAD 2022',
+    'AutoCAD 2023',
+    'CFD-Post 2022 R2',
+    'CFX 2022 R2',
+    'Cloudapp Online Usage',
+    'DESIGN II',
+    'Design Point Service DPS 2022 R2',
+    'ETABS 2015',
+    'EViews 11',
+    'Ecotect Analysis 2011',
+    'Excel',
+    'FlexSim 2020',
+    'FlexSim 2022',
+    'FlexSim 2023',
+    'Fluent 2021 R2',
+    'Fluent 2022 R2',
+    'Iexplore',
+    'Inkscape',
+    'Inventor 2022',
+    'Inventor Professional 2023',
+    'Kdenlive',
+    'Krita',
+    'LS-Run 2022 R2',
+    'LabVIEW 2021 SP1',
+    'LabVIEW 2023',
+    'LibreOffice',
+    'LibreOffice Base',
+    'LibreOffice Calc',
+    'LibreOffice Draw',
+    'LibreOffice Impress',
+    'MATLAB R2022b',
+    'MATLAB R2023a',
+    'Mechanical 2022 R2',
+    'Mechanical APDL 2022 R2',
+    'Mechanical APDL Product Launcher 2022 R2',
+    'Minitab',
+    'NI Multisim 141',
+    'NI Ultiboard 141',
+    'NX 85',
+    'Navisworks Manage 2022',
+    'Polarizer Surface Editor 2022 R2',
+    'Polyflow 2022 R2',
+    'PowerPoint',
+    'Product & CAD Configuration 2022 R2',
+    'RSM Job Monitoring 2022 R2',
+    'RStudio',
+    'Revit 2022',
+    'Revit 2023',
+    'Rhino 7',
+    'SAP2000',
+    'SAS 94 中文',
+    'SAS 94 英文',
+    'SAS Enterprise Guide 83',
+    'SAS Enterprise Miner Workstation 152',
+    'SAS Studio 381',
+    'SOLIDWORKS 2016',
+    'SPSS 18',
+    'SPSS 21',
+    'SPSS 22',
+    'SPSS 23',
+    'SPSS 24',
+    'Sherlock 2022 R2',
+    'Sherlock 3D Viewer 2022 R2',
+    'SmartPLS 4',
+    'SpaceClaim 2022 R2',
+    'StataSE 18',
+    'Statistics on Structures 2022 R2',
+    'TEJPro',
+    'VDI Online Usage',
+    'Visio',
+    'Word',
+    'WorkFlow ERP GP 系統',
+    'Workbench 2021 R2',
+    'Workbench 2022 R2',
+    '幼獅題庫命題系統107年',
+    '校務系統',
+    '校務系統練習區',
+    '櫃台服務系統',
+    '＊雲端校務123上課講義＊'
 ]
 
-def mainpage(request):
 
+def mainpage(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
     else:
-        return render(request,'mainpage/index.html')
+        return render(request, 'mainpage/index.html')
+
 
 def citrix_log_open(request):
     if not request.user.is_authenticated:
@@ -117,7 +118,7 @@ def citrix_log_open(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_data =  pre_process_date_usage_amount_data.objects.filter(application_name=app)
+    application_data = pre_process_date_usage_amount_data.objects.filter(application_name=app)
 
     date_list = []
     num_list = []
@@ -127,30 +128,31 @@ def citrix_log_open(request):
         num_list.append(i.amount)
 
     trace = go.Figure(
-            data=[
-                go.Bar(
-                    name="test",
-                    x=date_list,
-                    y=num_list,
-                    offsetgroup=0,
-                ),
-            ],
-            layout=go.Layout(
-                title=app,
-                yaxis_title="number",
-                xaxis_title="date",
-                width=1500,
-                height=750
-            )
+        data=[
+            go.Bar(
+                name="test",
+                x=date_list,
+                y=num_list,
+                offsetgroup=0,
+            ),
+        ],
+        layout=go.Layout(
+            title=app,
+            yaxis_title="number",
+            xaxis_title="date",
+            width=1500,
+            height=750
         )
+    )
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'bar': bar_div,
-                'app_name': [app],
-                'app_list': application_list}
+               'app_name': [app],
+               'app_list': application_list}
 
     return render(request, 'citrix_log_page/open_amount.html', context)
+
 
 def citrix_log_online(request):
     if not request.user.is_authenticated:
@@ -163,76 +165,37 @@ def citrix_log_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    location_group = citrix_log.objects.filter(location_name=app)
-    pd_data = pd.DataFrame(list(location_group.values()))
+    application_data = pre_process_online_amount_data.objects.filter(application_name=app)
 
-    try:
-        open_end_time = pd_data[['application_start_date', 'application_end_date']]
+    date_list = []
+    num_list = []
 
-        open_end_time['application_start_date'] = open_end_time['application_start_date']
-        open_end_time['application_end_date'] = open_end_time['application_end_date']
+    for i in application_data:
+        date_list.append(i.date)
+        num_list.append(i.amount)
 
-        open_end_time['date'] = open_end_time['application_start_date'].dt.date
-        open_end_time_grouped = open_end_time.groupby('date')
-
-        max_online = open_end_time_grouped.apply(
-            lambda x: x.apply(lambda y: ((x['application_start_date'] <= y['application_start_date']) & (
-                        x['application_end_date'] >= y['application_end_date'])).sum(),
-                              axis=1).max())
-
-        result_df = pd.DataFrame({'date': max_online.index, 'max_amount': max_online.values})
-        result_df = result_df.sort_values(by='date')
-
-        trace = go.Figure(
-            data=[
-                go.Bar(
-                    name="test",
-                    x=result_df['date'],
-                    y=result_df['max_amount'],
-                    offsetgroup=0,
-                ),
-            ],
-            layout=go.Layout(
-                title=app,
-                yaxis_title="number",
-                xaxis_title="date",
-                width=1500,
-                height=750
-            )
+    trace = go.Figure(
+        data=[
+            go.Bar(
+                name="test",
+                x=date_list,
+                y=num_list,
+                offsetgroup=0,
+            ),
+        ],
+        layout=go.Layout(
+            title=app,
+            yaxis_title="number",
+            xaxis_title="date",
+            width=1500,
+            height=750
         )
+    )
 
-        bar_div = opy.plot(trace, auto_open=False, output_type='div')
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
-        context = {'bar': bar_div,
-                   'app_name': [app],
-                   'app_list': application_list}
+    context = {'bar': bar_div,
+               'app_name': [app],
+               'app_list': application_list}
 
-        return render(request, 'citrix_log_page/online_amount.html', context)
-    except:
-        trace = go.Figure(
-            data=[
-                go.Bar(
-                    name="test",
-                    x=[],
-                    y=[],
-                    offsetgroup=0,
-                ),
-            ],
-            layout=go.Layout(
-                title=app,
-                yaxis_title="number",
-                xaxis_title="date",
-                width=1500,
-                height=750
-            )
-        )
-
-        bar_div = opy.plot(trace, auto_open=False, output_type='div')
-
-        context = {'bar': bar_div,
-                   'app_name': [app],
-                   'app_list': application_list}
-
-        return render(request, 'citrix_log_page/online_amount.html', context)
-
-
+    return render(request, 'citrix_log_page/online_amount.html', context)
