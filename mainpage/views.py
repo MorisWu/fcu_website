@@ -117,7 +117,7 @@ def citrix_log_open(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_data =  pre_process_date_usage_amount_data.objects.filter(location_name=app)
+    application_data =  pre_process_date_usage_amount_data.objects.filter(application_name=app)
 
     date_list = []
     num_list = []
