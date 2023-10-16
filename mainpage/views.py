@@ -232,7 +232,7 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('-month')
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
     date_list = []
     num_list = []
 
@@ -279,7 +279,7 @@ def month_usage(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = pre_process_date_usage_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('-month')
+    application_usage_data = pre_process_date_usage_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
 
     date_list = []
     num_list = []
