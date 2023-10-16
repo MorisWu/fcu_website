@@ -252,7 +252,7 @@ def month_online(request):
         layout=go.Layout(
             title=app,
             yaxis_title="number",
-            xaxis_title="date",
+            xaxis_title="month",
             width=1500,
             height=750
         )
@@ -309,7 +309,7 @@ def month_usage(request):
         layout=go.Layout(
             title=app,
             yaxis_title="number",
-            xaxis_title="date",
+            xaxis_title="month",
             width=1500,
             height=750
         )
