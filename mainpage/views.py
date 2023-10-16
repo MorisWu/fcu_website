@@ -3,6 +3,7 @@ from database_model.models import pre_process_online_amount_data, pre_process_da
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
+from django.db.models import Max
 
 application_list = [
     '3ds Max 2022',
@@ -230,8 +231,40 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app)
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('month').annotate(max_usage=Max('amount')).order_by('-month')
+    date_list = []
+    num_list = []
 
+    for i in application_online_data:
+        date_list.append(i.date)
+        num_list.append(i.amount)
+
+    trace = go.Figure(
+        data=[
+            go.Bar(
+                name="test",
+                x=date_list,
+                y=num_list,
+                offsetgroup=0,
+            ),
+        ],
+        layout=go.Layout(
+            title=app,
+            yaxis_title="number",
+            xaxis_title="date",
+            width=1500,
+            height=750
+        )
+    )
+
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+    context = {'bar': bar_div,
+               'app_name': [app],
+               'app_list': application_list,
+               }
+
+    return render(request, 'citrix_log_page/online_month_amount.html', context)
 
 
 def month_usage(request):
@@ -245,4 +278,38 @@ def month_usage(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = pre_process_online_amount_data.objects.filter(application_name=app)
+    application_usage_data = pre_process_date_usage_amount_data.objects.filter(application_name=app).values('month').annotate(max_usage=Max('amount')).order_by('-month')
+
+    date_list = []
+    num_list = []
+
+    for i in application_usage_data:
+        date_list.append(i.date)
+        num_list.append(i.amount)
+
+    trace = go.Figure(
+        data=[
+            go.Bar(
+                name="test",
+                x=date_list,
+                y=num_list,
+                offsetgroup=0,
+            ),
+        ],
+        layout=go.Layout(
+            title=app,
+            yaxis_title="number",
+            xaxis_title="date",
+            width=1500,
+            height=750
+        )
+    )
+
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+    context = {'bar': bar_div,
+               'app_name': [app],
+               'app_list': application_list,
+               }
+
+    return render(request, 'citrix_log_page/open_month_amount.html', context)
