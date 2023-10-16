@@ -237,8 +237,8 @@ def month_online(request):
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i.date)
-        num_list.append(i.amount)
+        date_list.append(i['date__month'])
+        num_list.append(i['max_usage'])
 
     trace = go.Figure(
         data=[
@@ -285,8 +285,8 @@ def month_usage(request):
     num_list = []
 
     for i in application_usage_data:
-        date_list.append(i.date)
-        num_list.append(i.amount)
+        date_list.append(i['date__month'])
+        num_list.append(i['max_usage'])
 
     trace = go.Figure(
         data=[
