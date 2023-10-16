@@ -218,3 +218,31 @@ def citrix_log_online(request):
                }
 
     return render(request, 'citrix_log_page/online_amount.html', context)
+
+def month_online(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
+
+    global application_list
+
+    app = '校務系統'
+
+    if 'application' in request.POST and request.POST['application'] != '':
+        app = request.POST['application']
+
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app)
+
+
+
+def month_usage(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
+
+    global application_list
+
+    app = '校務系統'
+
+    if 'application' in request.POST and request.POST['application'] != '':
+        app = request.POST['application']
+
+    application_usage_data = pre_process_online_amount_data.objects.filter(application_name=app)
