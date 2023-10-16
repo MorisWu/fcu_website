@@ -4,6 +4,7 @@ import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
 from django.db.models import Max
+from django.db.models.functions import ExtractMonth
 
 application_list = [
     '3ds Max 2022',
@@ -231,7 +232,7 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('month').annotate(max_usage=Max('amount')).order_by('-month')
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('-month')
     date_list = []
     num_list = []
 
@@ -278,7 +279,7 @@ def month_usage(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = pre_process_date_usage_amount_data.objects.filter(application_name=app).values('month').annotate(max_usage=Max('amount')).order_by('-month')
+    application_usage_data = pre_process_date_usage_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('-month')
 
     date_list = []
     num_list = []
