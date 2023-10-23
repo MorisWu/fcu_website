@@ -124,7 +124,7 @@ def month_online(request):
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i['date'])
+        date_list.append(i['date__month'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
@@ -180,7 +180,7 @@ def vanse_month_data(request):
     num_list = []
 
     for i in application_usage_data:
-        date_list.append(i['date'])
+        date_list.append(i['date__month'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
@@ -198,7 +198,6 @@ def vanse_month_data(request):
             xaxis_title="month",
             width=1500,
             height=750,
-            xaxis='date'
         )
     )
 
