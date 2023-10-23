@@ -19,8 +19,9 @@ from . import views
 
 urlpatterns = [
     path('', views.mainpage),
-    path('citrix_open/', views.citrix_log_open),
+    #path('citrix_open/', views.citrix_log_open),
     path('citrix_online/', views.citrix_log_online),
     path('citrix_online_monthly/', views.month_online),
-    path('citrix_open_monthly/', views.month_usage)
+    path('vanse_online_monthly/', views.vanse_month_data)
+    #path('citrix_open_monthly/', views.month_usage)
 ]
