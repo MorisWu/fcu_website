@@ -200,6 +200,11 @@ def vanse_month_data(request):
             xaxis_title="month",
             width=1500,
             height=750,
+            xaxis=dict(
+                tickmode='array',  # 使用指定的刻度值
+                tickvals=list(range(len(date_list))),  # 整數刻度值
+                ticktext=[str(int(val)) for val in date_list]  # 整數刻度標籤
+            )
         )
     )
 
