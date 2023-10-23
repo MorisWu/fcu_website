@@ -23,6 +23,7 @@ urlpatterns = [
     #path('citrix_online/', views.citrix_log_online),
     #path('vanse_online/', views.citrix_log_online),
     path('citrix_online_monthly/', views.month_online),
-    path('vanse_online_monthly/', views.vanse_month_data)
+    path('vanse_online_monthly/', views.vanse_month_data),
+    path('vans_citrix_monthly/', views.citrix_vans_month_online),
     #path('citrix_open_monthly/', views.month_usage)
 ]

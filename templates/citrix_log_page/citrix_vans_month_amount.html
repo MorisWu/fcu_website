@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Citrix && Vans</title>
+</head>
+<body>
+    <h1>每月軟體最高同時使用人次</h1>
+    {% for i in auth_num %}
+        {%if not i == 0 %}
+            <h2>軟體授權數:{{i}}</h2>
+        {% endif %}
+    {% endfor %}
+    <form method="post">
+        <select name="application">
+            {% for app in app_list %}
+            <option value = "{{app}}">{{app}}</option>
+            {% endfor %}
+        </select>
+        {% csrf_token %}
+        <input type="submit" value="search">
+    </form>
+     {% autoescape off %}
+        {{ bar }}
+     {% endautoescape %}
+</body>
