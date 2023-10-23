@@ -140,6 +140,7 @@ def month_online(request):
             title=app,
             yaxis_title="number",
             xaxis_title="month",
+            xaxis=list(tickformat=',d'),
             width=1500,
             height=750
         )
@@ -196,6 +197,7 @@ def vanse_month_data(request):
             title=app,
             yaxis_title="number",
             xaxis_title="month",
+            xaxis=list(tickformat=',d'),
             width=1500,
             height=750,
         )
