@@ -29,3 +29,8 @@ class pre_process_date_usage_amount_data(models.Model):
 class application_authorizations_num(models.Model):
     application_name = models.CharField(max_length=50)
     amount = models.IntegerField(default=0)
+
+class vanse_data(models.Model):
+    application_name = models.CharField(max_length=50)
+    date = models.DateTimeField(null=True)
+    amount = models.IntegerField(null=True)
