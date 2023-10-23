@@ -141,6 +141,7 @@ def month_online(request):
             title=app,
             yaxis_title="number",
             xaxis_title="month",
+            xaxis=range(0, max(date_list)),
             width=1500,
             height=750
         )
