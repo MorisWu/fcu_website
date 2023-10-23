@@ -108,176 +108,6 @@ def mainpage(request):
     else:
         return render(request, 'mainpage/index.html')
 
-
-def citrix_log_open(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/login/')
-
-    global application_list
-
-    app = '校務系統'
-
-    if 'application' in request.POST and request.POST['application'] != '':
-        app = request.POST['application']
-
-    application_data = pre_process_date_usage_amount_data.objects.filter(application_name=app)
-
-    date_list = []
-    num_list = []
-
-    for i in application_data:
-        date_list.append(i.date)
-        num_list.append(i.amount)
-
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name="test",
-                x=date_list,
-                y=num_list,
-                offsetgroup=0,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title="number",
-            xaxis_title="date",
-            width=1500,
-            height=750
-        )
-    )
-
-    bar_div = opy.plot(trace, auto_open=False, output_type='div')
-
-    auth_num = 0
-    try:
-        auth = application_authorizations_num.objects.filter(application_name=app)
-        for i in auth:
-            auth_num = i.amount
-    except:
-        auth_num = 0
-
-    context = {'bar': bar_div,
-               'app_name': [app],
-               'app_list': application_list,
-               'auth_num':[auth_num]
-               }
-
-    return render(request, 'citrix_log_page/open_amount.html', context)
-
-
-def citrix_log_online(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/login/')
-
-    global application_list
-
-    app = '校務系統'
-
-    if 'application' in request.POST and request.POST['application'] != '':
-        app = request.POST['application']
-
-    application_data = pre_process_online_amount_data.objects.filter(application_name=app)
-
-    date_list = []
-    num_list = []
-
-    for i in application_data:
-        date_list.append(i.date)
-        num_list.append(i.amount)
-
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name="test",
-                x=date_list,
-                y=num_list,
-                offsetgroup=0,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title="number",
-            xaxis_title="date",
-            width=1500,
-            height=750
-        )
-    )
-
-    bar_div = opy.plot(trace, auto_open=False, output_type='div')
-
-    auth_num = 0
-    try:
-        auth = application_authorizations_num.objects.filter(application_name=app)
-        for i in auth:
-            auth_num = i.amount
-    except:
-        auth_num = 0
-
-    context = {'bar': bar_div,
-               'app_name': [app],
-               'app_list': application_list,
-               'auth_num': [auth_num]
-               }
-
-    return render(request, 'citrix_log_page/online_amount.html', context)
-
-def vanse_online(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/login/')
-
-    global application_list
-
-    app = '校務系統'
-
-    if 'application' in request.POST and request.POST['application'] != '':
-        app = request.POST['application']
-
-    application_data = vanse_data.objects.filter(application_name=app)
-
-    date_list = []
-    num_list = []
-
-    for i in application_data:
-        date_list.append(i.date)
-        num_list.append(i.amount)
-
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name="test",
-                x=date_list,
-                y=num_list,
-                offsetgroup=0,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title="number",
-            xaxis_title="date",
-            width=1500,
-            height=750
-        )
-    )
-
-    bar_div = opy.plot(trace, auto_open=False, output_type='div')
-
-    auth_num = 0
-    try:
-        auth = application_authorizations_num.objects.filter(application_name=app)
-        for i in auth:
-            auth_num = i.amount
-    except:
-        auth_num = 0
-
-    context = {'bar': bar_div,
-               'app_name': [app],
-               'app_list': application_list,
-               'auth_num': [auth_num]
-               }
-
-    return render(request, 'citrix_log_page/online_amount.html', context)
-
 def month_online(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -289,12 +119,12 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date').annotate(max_usage=Max('amount'))
     date_list = []
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i['date__month'])
+        date_list.append(i['date'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
@@ -333,66 +163,6 @@ def month_online(request):
 
     return render(request, 'citrix_log_page/online_month_amount.html', context)
 
-
-def month_usage(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/login/')
-
-    global application_list
-
-    app = '校務系統'
-
-    if 'application' in request.POST and request.POST['application'] != '':
-        app = request.POST['application']
-
-    application_usage_data = pre_process_date_usage_amount_data.objects.filter(application_name=app).values('date').annotate(max_usage=Max('amount'))
-
-    date_list = []
-    num_list = []
-
-    for i in application_usage_data:
-        s = i['date']
-        d = datetime.strptime(s, '%d %d %Y')
-        date_list.append(d.strftime('%d %m %y'))
-        num_list.append(i['max_usage'])
-
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name="test",
-                x=date_list,
-                y=num_list,
-                offsetgroup=0,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title="number",
-            xaxis_title="month",
-            width=1500,
-            height=750,
-            xaxis='date'
-        )
-    )
-
-    bar_div = opy.plot(trace, auto_open=False, output_type='div')
-
-    auth_num = 0
-    try:
-        auth = application_authorizations_num.objects.filter(application_name=app)
-        for i in auth:
-            auth_num = i.amount
-    except:
-        auth_num = 0
-
-    context = {'bar': bar_div,
-               'app_name': [app],
-               'app_list': application_list,
-               'auth_num': [auth_num]
-               }
-
-    return render(request, 'citrix_log_page/open_month_amount.html', context)
-
 def vanse_month_data(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -404,13 +174,13 @@ def vanse_month_data(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
+    application_usage_data = vanse_data.objects.filter(application_name=app).values('date').annotate(max_usage=Max('amount'))
 
     date_list = []
     num_list = []
 
     for i in application_usage_data:
-        date_list.append(i['date__month'])
+        date_list.append(i['date'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
