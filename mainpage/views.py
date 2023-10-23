@@ -240,16 +240,20 @@ def citrix_vans_month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
-    vans_online_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('date__month')
+    vans_online_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('date__month')
+
     date_list = []
     num_list = []
 
-    for i, j in zip(application_online_data, vans_online_data):
+    for i in application_online_data:
         date_list.append(i['date__month'])
-        if i['date__month'] == j['date__month']:
-            i['max_usage'] += j['max_usage']
         num_list.append(i['max_usage'])
+
+    for i in vans_online_data:
+        for j in range(len(date_list)):
+            if i['date__minth'] == date_list[j]:
+                num_list[j] += i['max_usage']
 
     trace = go.Figure(
         data=[
