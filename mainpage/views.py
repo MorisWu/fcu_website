@@ -198,7 +198,7 @@ def vanse_month_data(request):
             yaxis_title="number",
             xaxis_title="month",
             xaxis=list(tickformat=',d'),
-            width=1500,
+            width=500,
             height=750,
         )
     )
