@@ -252,7 +252,7 @@ def citrix_vans_month_online(request):
 
     for i in vans_online_data:
         for j in range(len(date_list)):
-            if i['date__minth'] == date_list[j]:
+            if i['date__month'] == date_list[j]:
                 num_list[j] += i['max_usage']
 
     trace = go.Figure(
