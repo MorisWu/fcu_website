@@ -134,7 +134,7 @@ def month_online(request):
                 x=date_list,
                 y=num_list,
                 offsetgroup=0,
-                width=50
+                width=1
             ),
         ],
         layout=go.Layout(
@@ -191,7 +191,7 @@ def vanse_month_data(request):
                 x=date_list,
                 y=num_list,
                 offsetgroup=0,
-                width=50
+                width=1
             ),
         ],
         layout=go.Layout(
