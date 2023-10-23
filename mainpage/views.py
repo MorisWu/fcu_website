@@ -134,7 +134,7 @@ def month_online(request):
                 x=date_list,
                 y=num_list,
                 offsetgroup=0,
-                width=1
+                width=2
             ),
         ],
         layout=go.Layout(
