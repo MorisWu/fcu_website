@@ -134,13 +134,13 @@ def month_online(request):
                 x=date_list,
                 y=num_list,
                 offsetgroup=0,
+                width=50
             ),
         ],
         layout=go.Layout(
             title=app,
             yaxis_title="number",
             xaxis_title="month",
-            xaxis=list(tickformat=',d'),
             width=1500,
             height=750
         )
@@ -191,14 +191,14 @@ def vanse_month_data(request):
                 x=date_list,
                 y=num_list,
                 offsetgroup=0,
+                width=50
             ),
         ],
         layout=go.Layout(
             title=app,
             yaxis_title="number",
             xaxis_title="month",
-            xaxis=list(tickformat=',d'),
-            width=500,
+            width=1500,
             height=750,
         )
     )
