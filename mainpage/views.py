@@ -119,7 +119,7 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date').annotate(max_usage=Max('amount'))
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
     date_list = []
     num_list = []
 
@@ -174,7 +174,7 @@ def vanse_month_data(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = vanse_data.objects.filter(application_name=app).values('date').annotate(max_usage=Max('amount'))
+    application_usage_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
 
     date_list = []
     num_list = []
