@@ -219,4 +219,4 @@ def vanse_month_data(request):
                'auth_num': [auth_num]
                }
 
-    return render(request, 'citrix_log_page/open_month_amount.html', context)
+    return render(request, 'citrix_log_page/vans_online_month_amount.html', context)
