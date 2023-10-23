@@ -353,7 +353,7 @@ def month_usage(request):
     for i in application_usage_data:
         s = i['date']
         d = datetime.strptime(s, '%d %d %Y')
-        date_list.append(d.strftime('%m'))
+        date_list.append(d.strftime('%d %m %y'))
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
