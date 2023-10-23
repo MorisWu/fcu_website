@@ -370,7 +370,8 @@ def month_usage(request):
             yaxis_title="number",
             xaxis_title="month",
             width=1500,
-            height=750
+            height=750,
+            xaxis='date'
         )
     )
 
