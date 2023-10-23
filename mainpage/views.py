@@ -220,3 +220,4 @@ def vanse_month_data(request):
                }
 
     return render(request, 'citrix_log_page/vans_online_month_amount.html', context)
+
