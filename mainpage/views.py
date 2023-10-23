@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from database_model.models import pre_process_online_amount_data, pre_process_date_usage_amount_data, application_authorizations_num, vanse_data
+from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
@@ -241,11 +241,14 @@ def citrix_vans_month_online(request):
         app = request.POST['application']
 
     application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
+    vans_online_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
     date_list = []
     num_list = []
 
-    for i in application_online_data:
+    for i, j in zip(application_online_data, vans_online_data):
         date_list.append(i['date__month'])
+        if i['date__month'] == j['date__month']:
+            i['max_usage'] += j['max_usage']
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
