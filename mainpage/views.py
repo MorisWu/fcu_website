@@ -201,8 +201,8 @@ def vanse_month_data(request):
             width=1500,
             height=750,
             xaxis=dict(
-                tickvals=list(range(len(date_list))),  # 整數刻度值
-                ticktext=[str(int(val)) for val in date_list]  # 整數刻度標籤
+                tickmode='linear',
+                dtick=1
             )
         )
     )
