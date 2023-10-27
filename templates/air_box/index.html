@@ -1,6 +1,10 @@
 <h1>空氣盒子</h1>
 
-{% for place in place_list %}
-<h3> {{place}} </h3>
-<h4>{{place_data_dict.place.pm25}}</h4>
+{% for key, sub_dict in place_data_dict.items %}
+<li>Key: {{ key }}</li>
+<ul>
+    {% for sub_key, sub_value in sub_dict.items %}
+    <li>{{ sub_key }} : {{ sub_value }}</li>
+    {% endfor %}
+</ul>
 {% endfor %}
