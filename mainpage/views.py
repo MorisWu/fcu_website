@@ -4,8 +4,8 @@ import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
 from django.db.models import Max
-#from django.db.models.functions import ExtractMonth
-from datetime import datetime
+import requests as res
+import ast
 
 application_list = [
     '3ds Max 2022',
@@ -295,3 +295,67 @@ def citrix_vans_month_online(request):
                }
 
     return render(request, 'citrix_log_page/citrix_vans_month_amount.html', context)
+
+def air_box(request):
+    url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
+    get_raw_data = res.get(url).text
+    data_dict = ast.literal_eval(get_raw_data)
+    place_data_dict = {}
+
+    place_list = [
+        '人言_405',
+        '人言_402',
+        '人言_503',
+        '人言_502',
+        '人言_602',
+        '人言_707',
+        '人言_401',
+        '人言_608',
+        '人言_607',
+        '資電_IDC機房',
+        '人言_704',
+        '人言_504',
+        '人言_604',
+        '人言_404',
+        '人言_605',
+        '人言_703',
+        '人言_506',
+        '人言_702',
+        '人言_701',
+        '人言_403',
+        '人言_706',
+        '人言_708',
+        '人言_507',
+        '人言_606',
+        '人言_501',
+        '人言_B120',
+        '人言_508',
+        '人言_202',
+        '人言_203',
+        '人言_408',
+        '人言_B117',
+        '人言_B116',
+        'Airbox_機動198',
+        '紀念_303',
+        '工學_319'
+    ]
+
+    if data_dict['status'] == 'ok':
+        for data in data_dict['entries']:
+            place_dict = {}
+            place_dict['pm25'] = data['pm25']
+            place_dict['pm10'] = data['pm10']
+            place_dict['pm1'] = data['pm1']
+            place_dict['co2'] = data['co2']
+            place_dict['hcho'] = data['hcho']
+            place_dict['tvoc'] = data['tvoc']
+            place_dict['co'] = data['co']
+            place_dict['t'] = data['t']
+            place_dict['h'] = data['h']
+            place_data_dict[data['name']] = place_dict
+
+    context = {
+        'place_list':place_list,
+        'place_data_dict':place_data_dict
+    }
+    return render(request, 'air_box/index.html', context)
