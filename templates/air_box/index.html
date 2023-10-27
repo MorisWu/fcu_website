@@ -1,6 +1,6 @@
 <h1>空氣盒子</h1>
 
-{% for place in place_list %}
-<h2> {{place}} </h2>
-<h3></h3>
+{% for key, value in place_data_dict %}
+<h3> {{key}} </h3>
+<h4>{{value}}</h4>
 {% endfor %}
