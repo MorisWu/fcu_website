@@ -301,6 +301,7 @@ def air_box(request):
     get_raw_data = res.get(url).text
     data_dict = ast.literal_eval(get_raw_data)
     place_data_dict = {}
+    offline_place_data_dict = {}
 
     if data_dict['status'] == 'ok':
         for data in data_dict['entries']:
@@ -317,8 +318,14 @@ def air_box(request):
             place_dict['status'] = data['status']
             place_dict['time'] = data['time']
             place_data_dict[data['name']] = place_dict
+        for data in data_dict['exclusion']:
+            place_dict = {}
+            place_dict['status'] = data['status']
+            place_dict['time'] = data['time']
+            offline_place_data_dict[data['name']] = place_dict
 
     context = {
-        'place_data_dict':place_data_dict
+        'place_data_dict':place_data_dict,
+        'offline_place_data_dict':offline_place_data_dict
     }
     return render(request, 'air_box/index.html', context)
