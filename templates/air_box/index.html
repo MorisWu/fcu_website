@@ -10,7 +10,9 @@
             <details>
                 <summary>{{ place }}</summary>
                 {% for key, value in place_dict.items %}
-                <p>{{ key }} : {{ value }}</p>
+                <ul>
+                    <li>{{ key }} : {{ value }}</li>
+                </ul>
                 {% endfor %}
             </details>
             {% endfor %}
