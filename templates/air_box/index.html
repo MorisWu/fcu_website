@@ -2,25 +2,21 @@
     <head>
         <meta charset = "UTF-8">
         <title>空氣盒子</title>
-        <script>
-            $('#all ul').hide();  //隱藏所有li
-
-            $('#all li').click(function(){
-	            $(this).parent().find('ul').toggle('slow');
-            });
-        </script>
     </head>
     <body>
         <div style="width:500px;float:left;height:200px;">
             <h2>Online</h2>
-            {% for place, place_dict in place_data_dict.items %}
-            <h3>{{ place }}</h3>
-            <ul>
+            <details>
+                {% for place, place_dict in place_data_dict.items %}
+                <summary>{{ place }}</summary>
+                <ul>
                 {% for key, value in place_dict.items %}
                 <li>{{ key }} : {{ value }}</li>
                 {% endfor %}
-            </ul>
-            {% endfor %}
+                </ul>
+                {% endfor %}
+            </details>
+
         </div>
         <div style="border:1pxsolid;float:left;height:200px;"></div>
         <div style="width:500px;float:left;height:200px;">
