@@ -1,24 +1,10 @@
-<html>
-    <head>
-        <script>
-            $('#all ul').hide();  //隱藏所有li
+<h1>空氣盒子</h1>
 
-            $('#show').click(function(){
-	            $(this).parent().find('ul').toggle('slow');
-            });
-        </script>
-    </head>
-
-    <body>
-        <h1>空氣盒子</h1>
-
-        {% for place, place_dict in place_data_dict.items %}
-            <h3>{{ place }}</h3>
-            <ul class="show">
-                {% for key, value in place_dict.items %}
-                <li>{{ key }} : {{ value }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </body>
-</html>
+{% for place, place_dict in place_data_dict.items %}
+<h3>{{ place }}</h3>
+<ul>
+    {% for key, value in place_dict.items %}
+    <li>{{ key }} : {{ value }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}
