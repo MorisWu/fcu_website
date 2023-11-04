@@ -7,15 +7,13 @@
         <div style="width:500px;float:left;height:200px;">
             <h2>Online</h2>
             {% for place, place_dict in place_data_dict.items %}
-            <details>>
+            <details>
                 <summary>{{ place }}</summary>
-                <ul>
                 {% for key, value in place_dict.items %}
-                <li>{{ key }} : {{ value }}</li>
-                {% endfor %}
-                </ul>
+                <p>{{ key }} : {{ value }}</p>
                 {% endfor %}
             </details>
+            {% endfor %}
 
         </div>
         <div style="border:1pxsolid;float:left;height:200px;"></div>
