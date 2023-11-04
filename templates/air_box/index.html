@@ -9,11 +9,11 @@
             {% for place, place_dict in place_data_dict.items %}
             <details>
                 <summary>{{ place }}</summary>
-                {% for key, value in place_dict.items %}
                 <ul>
+                {% for key, value in place_dict.items %}
                     <li>{{ key }} : {{ value }}</li>
-                </ul>
                 {% endfor %}
+                </ul>
             </details>
             {% endfor %}
 
