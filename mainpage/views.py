@@ -302,44 +302,6 @@ def air_box(request):
     data_dict = ast.literal_eval(get_raw_data)
     place_data_dict = {}
 
-    place_list = [
-        '人言_405',
-        '人言_402',
-        '人言_503',
-        '人言_502',
-        '人言_602',
-        '人言_707',
-        '人言_401',
-        '人言_608',
-        '人言_607',
-        '資電_IDC機房',
-        '人言_704',
-        '人言_504',
-        '人言_604',
-        '人言_404',
-        '人言_605',
-        '人言_703',
-        '人言_506',
-        '人言_702',
-        '人言_701',
-        '人言_403',
-        '人言_706',
-        '人言_708',
-        '人言_507',
-        '人言_606',
-        '人言_501',
-        '人言_B120',
-        '人言_508',
-        '人言_202',
-        '人言_203',
-        '人言_408',
-        '人言_B117',
-        '人言_B116',
-        'Airbox_機動198',
-        '紀念_303',
-        '工學_319'
-    ]
-
     if data_dict['status'] == 'ok':
         for data in data_dict['entries']:
             place_dict = {}
@@ -355,7 +317,6 @@ def air_box(request):
             place_data_dict[data['name']] = place_dict
 
     context = {
-        'place_list':place_list,
         'place_data_dict':place_data_dict
     }
     return render(request, 'air_box/index.html', context)
