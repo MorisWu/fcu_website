@@ -7,6 +7,7 @@
               border: 1px solid #aaa;
               border-radius: 4px;
               padding: 0.5em 0.5em 0;
+              line-height: 1px;
             }
 
             summary {
@@ -24,14 +25,16 @@
         <div style="width:500px; float:left; height:200px;">
             <h2>Online</h2>
             {% for place, place_dict in place_data_dict.items %}
-            <details>
-                <summary>{{ place }}</summary>
-                <ul>
-                {% for key, value in place_dict.items %}
-                    <li>{{ key }} : {{ value }}</li>
-                {% endfor %}
-                </ul>
-            </details>
+            <div>
+                <details>
+                    <summary>{{ place }}</summary>
+                    <ul>
+                    {% for key, value in place_dict.items %}
+                        <li>{{ key }} : {{ value }}</li>
+                    {% endfor %}
+                    </ul>
+                </details>
+            </div>
             {% endfor %}
 
         </div>
