@@ -311,6 +311,18 @@ def air_box(request):
     place_data_dict = {}
     offline_place_data_dict = {}
 
+    values_threshold = {
+        'pm25': 35,
+        'pm10': 75,
+        'pm1': 35,
+        'co2': 1000,
+        'hcho': 0.08,
+        'tvoc': 0.56,
+        'co': 9
+    }
+
+    value_keys = values_threshold.keys()
+
     if data_dict['status'] == 'ok':
         for data in data_dict['entries']:
             place_dict = {}
@@ -326,23 +338,16 @@ def air_box(request):
             place_dict['status'] = data['status']
             place_dict['time'] = data['time']
             place_data_dict[data['name']] = place_dict
+            place_dict['color'] = "white"
+            for key in value_keys:
+                if place_dict[key] > values_threshold[key]:
+                    place_dict['color'] = "red"
+                    break
         for data in data_dict['exclusion']:
             place_dict = {}
             place_dict['status'] = data['status']
             place_dict['time'] = data['time']
             offline_place_data_dict[data['name']] = place_dict
-
-    values = {}
-    for data in data_dict['entries']:
-        values = {
-            'pm25': data['pm25'],
-            'pm10': data['pm10'],
-            'pm1': data['pm1'],
-            'co2': data['co2'],
-            'hcho': data['hcho'],
-            'tvoc': data['tvoc'],
-            'co': data['co']
-        }
 
     values_threshold = {
         'pm25': 35,
@@ -360,6 +365,5 @@ def air_box(request):
         'place_data_dict': place_data_dict,
         'offline_place_data_dict': offline_place_data_dict,
         'values_threshold':values_threshold,
-        'values':values
     }
     return render(request, 'air_box/index.html', context)

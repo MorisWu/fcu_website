@@ -26,7 +26,7 @@
             {% for place, place_dict in place_data_dict.items %}
             <div>
                 <details>
-                    <summary>{{ place }}</summary>
+                    <summary style="background-color:{{ place_dict.color }};">{{ place }}</summary>
                     <ul>
                         {% if place_dict.pm25 > 35 %}
                         <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
