@@ -347,7 +347,7 @@ scheduler = AsyncIOScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
 
 
-@register_job(scheduler, "interval", seconds=60, id='auto_add_data_in_to_air_box_database')
+@register_job(scheduler, "interval", seconds=60, id='auto_add_data_in_to_air_box_database2')
 def auto_add_data_in_to_air_box_database():
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
     get_raw_data = res.get(url).text
