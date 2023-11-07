@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, airbox_data
+from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, \
+    airbox_data
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
 from django.db.models import Max
 import requests as res
 import ast
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from django_apscheduler.jobstores import DjangoJobStore, register_job
 
 application_list = [
@@ -110,6 +111,7 @@ def mainpage(request):
     else:
         return render(request, 'mainpage/index.html')
 
+
 def month_online(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -121,7 +123,8 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values(
+        'date__month').annotate(max_usage=Max('amount'))
     date_list = []
     num_list = []
 
@@ -170,6 +173,7 @@ def month_online(request):
 
     return render(request, 'citrix_log_page/online_month_amount.html', context)
 
+
 def vanse_month_data(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -181,7 +185,8 @@ def vanse_month_data(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount'))
+    application_usage_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(
+        max_usage=Max('amount'))
 
     date_list = []
     num_list = []
@@ -231,6 +236,7 @@ def vanse_month_data(request):
 
     return render(request, 'citrix_log_page/vans_online_month_amount.html', context)
 
+
 def citrix_vans_month_online(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -242,8 +248,10 @@ def citrix_vans_month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('date__month')
-    vans_online_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(max_usage=Max('amount')).order_by('date__month')
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values(
+        'date__month').annotate(max_usage=Max('amount')).order_by('date__month')
+    vans_online_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(
+        max_usage=Max('amount')).order_by('date__month')
 
     date_list = []
     num_list = []
@@ -298,6 +306,7 @@ def citrix_vans_month_online(request):
 
     return render(request, 'citrix_log_page/citrix_vans_month_amount.html', context)
 
+
 def air_box(request):
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
     get_raw_data = res.get(url).text
@@ -327,15 +336,18 @@ def air_box(request):
             offline_place_data_dict[data['name']] = place_dict
 
     context = {
-        'place_data_dict':place_data_dict,
-        'place_data_dict':place_data_dict,
-        'offline_place_data_dict':offline_place_data_dict
+        'place_data_dict': place_data_dict,
+        'place_data_dict': place_data_dict,
+        'offline_place_data_dict': offline_place_data_dict
     }
     return render(request, 'air_box/index.html', context)
 
-scheduler = BackgroundScheduler()
+
+scheduler = AsyncIOScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
-@register_job(scheduler,"interval", seconds=60, id='auto_add_data_in_to_air_box_database')
+
+
+@register_job(scheduler, "interval", seconds=60, id='auto_add_data_in_to_air_box_database')
 def auto_add_data_in_to_air_box_database():
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
     get_raw_data = res.get(url).text
@@ -343,18 +355,18 @@ def auto_add_data_in_to_air_box_database():
 
     if data_dict['status'] == 'ok':
         for data in data_dict['entries']:
-            airbox_data.objects.create(location = data['name'],
-                                       pm25 = data['pm25'],
-                                       pm10 = data['pm10'],
-                                       pm1 = data['pm1'],
-                                       co2 = data['co2'],
-                                       hcho = data['hcho'],
-                                       tvoc = data['tvoc'],
-                                       co = data['co'],
-                                       temperature = data['t'],
-                                       humidity = data['h'],
-                                       time = data['time']
+            airbox_data.objects.create(location=data['name'],
+                                       pm25=data['pm25'],
+                                       pm10=data['pm10'],
+                                       pm1=data['pm1'],
+                                       co2=data['co2'],
+                                       hcho=data['hcho'],
+                                       tvoc=data['tvoc'],
+                                       co=data['co'],
+                                       temperature=data['t'],
+                                       humidity=data['h'],
+                                       time=data['time']
                                        )
 
-# 调度器开始运行
+
 scheduler.start()
