@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "mainpage",
     "database_model",
     "login_regist_page",
-    "django_apscheduler",
 ]
 
 MIDDLEWARE = [
