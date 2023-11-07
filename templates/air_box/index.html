@@ -27,7 +27,6 @@
             <div>
                 <details>
                    {% for key, value in values.items %}
-                        {% with key=item.key value=item.value threshold=item.threshold %}
                         <summary style="{% if value > thresholds.key %}background-color:red;{% endif %}">{{ place }}</summary>
                     {% endfor %}
                     <ul style="background-color:white;">
