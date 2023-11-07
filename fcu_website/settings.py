@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "mainpage",
     "database_model",
-    "login_regist_page"
+    "login_regist_page",
 ]
 
 MIDDLEWARE = [

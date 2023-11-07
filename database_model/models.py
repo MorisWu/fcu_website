@@ -1,7 +1,7 @@
 from django.db import models
+from django.core.cache import cache
 
 # Create your models here.
-
 class citrix_log(models.Model):
     location_name = models.CharField(max_length=50) #origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[Application].Name
     user_name = models.CharField(max_length=50) #origin label: [CitrixFCUVDIMonitoring1].[MonitorData].[User].UserName
