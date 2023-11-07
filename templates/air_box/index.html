@@ -28,7 +28,14 @@
                 <details>
                     <summary>{{ place }}</summary>
                     <ul>
-                        <li>pm25 : {{ place_dict.pm25 }}</li>
+                        {% if place_dict.pm25 > 35 %}
+                        <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
+                        {% elif place_dict.pm25 <= 35 and place_dict.pm25 > 17 %}
+                        <li style="color:yellow;">pm25 : {{ place_dict.pm25 }}</li>
+                        {% else %}}
+                        <li style="color:green;">pm25 : {{ place_dict.pm25 }}</li>
+                        {% endif %}
+
                         <li>pm10 : {{ place_dict.pm10 }}</li>
                         <li>pm1  : {{ place_dict.pm1 }}</li>
                         <li>co2 : {{ place_dict.co2 }}</li>
