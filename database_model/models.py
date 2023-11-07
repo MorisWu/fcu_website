@@ -34,3 +34,16 @@ class vanse_data(models.Model):
     application_name = models.CharField(max_length=50)
     date = models.DateTimeField(null=True)
     amount = models.IntegerField(null=True)
+
+class airbox_data(models.Model):
+    location = models.CharField(max_length=50)
+    pm25 = models.FloatField(null=True)
+    pm10 = models.FloatField(null=True)
+    pm1 = models.FloatField(null=True)
+    co2 = models.FloatField(null=True)
+    hcho = models.FloatField(null=True)
+    tvoc = models.FloatField(null=True)
+    co = models.FloatField(null=True)
+    temperature = models.FloatField(null=True)
+    humidity = models.FloatField(null=True)
+    time = models.DateTimeField(null = True)
