@@ -333,7 +333,6 @@ def air_box(request):
     }
     return render(request, 'air_box/index.html', context)
 
-'''
 scheduler = BackgroundScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
 @register_job(scheduler,"interval", seconds=60, id='auto_add_data_in_to_air_box_database')
@@ -359,4 +358,3 @@ def auto_add_data_in_to_air_box_database():
 
 # 调度器开始运行
 scheduler.start()
-'''
