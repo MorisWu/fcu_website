@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.db.models import Max
 import requests as res
 import ast
-from apscheduler.scheduler import Scheduler
+from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore, register_job
 
 application_list = [
     '3ds Max 2022',
@@ -332,10 +333,9 @@ def air_box(request):
     }
     return render(request, 'air_box/index.html', context)
 
-
-sched = Scheduler()
-
-@sched.interval_schedule(seconds=60)
+scheduler = BackgroundScheduler()
+scheduler.add_jobstore(DjangoJobStore(), "default")
+@register_job(scheduler,"interval", seconds=60, id='auto_add_data_in_to_air_box_database')
 def auto_add_data_in_to_air_box_database():
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
     get_raw_data = res.get(url).text
@@ -356,4 +356,5 @@ def auto_add_data_in_to_air_box_database():
                                        time = data['time']
                                        )
 
-sched.start()
+# 调度器开始运行
+scheduler.start()
