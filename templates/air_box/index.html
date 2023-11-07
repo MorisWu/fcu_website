@@ -28,9 +28,17 @@
                 <details>
                     <summary>{{ place }}</summary>
                     <ul>
-                    {% for key, value in place_dict.items %}
-                        <li>{{ key }} : {{ value }}</li>
-                    {% endfor %}
+                        <li>pm25 : {{ place_dict.items.pm25 }}</li>
+                        <li>pm10 : {{ place_dict.items.pm10 }}</li>
+                        <li>pm1  : {{ place_dict.items.pm1 }}</li>
+                        <li>co2 : {{ place_dict.items.co2 }}</li>
+                        <li>hcho : {{ place_dict.items.hcho }}</li>
+                        <li>tvoc  : {{ place_dict.items.tvoc }}</li>
+                        <li>co  : {{ place_dict.items.co }}</li>
+                        <li>t  : {{ place_dict.items.t }}</li>
+                        <li>h : {{ place_dict.items.h }}</li>
+                        <li>status : {{ place_dict.items.status }}</li>
+                        <li>time: {{ place_dict.items.time }}</li>
                     </ul>
                 </details>
             </div>
