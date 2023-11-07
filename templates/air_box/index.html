@@ -26,12 +26,8 @@
             {% for place, place_dict in place_data_dict.items %}
             <div>
                 <details>
-                   {% for key, value in place_dict.items %}
-                        {% if value > values_threshold.key %}
-                        <summary style="background-color:red;">{{ place }}</summary>
-                        {% endif %}
-                    {% endfor %}
-                    <ul style="background-color:white;">
+                    <summary>{{ place }}</summary>
+                    <ul>
                         {% if place_dict.pm25 > 35 %}
                         <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
                         {% else %}
