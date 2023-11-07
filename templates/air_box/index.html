@@ -31,7 +31,7 @@
                         {% if place_dict.pm25 > 35 %}
                         <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
                         {% elif place_dict.pm25 <= 35 and place_dict.pm25 > 17 %}
-                        <li style="color:yellow;">pm25 : {{ place_dict.pm25 }}</li>
+                        <li style="color:orange;">pm25 : {{ place_dict.pm25 }}</li>
                         {% else %}}
                         <li style="color:green;">pm25 : {{ place_dict.pm25 }}</li>
                         {% endif %}
@@ -39,7 +39,7 @@
                         {% if place_dict.pm10 > 75 %}
                         <li style="color:red;">pm10 : {{ place_dict.pm10 }}</li>
                         {% elif place_dict.pm10 <= 75 and place_dict.pm10 > 25 %}
-                        <li style="color:yellow;">pm10 : {{ place_dict.pm10 }}</li>
+                        <li style="color:orange;">pm10 : {{ place_dict.pm10 }}</li>
                         {% else %}}
                         <li style="color:green;">pm10 : {{ place_dict.pm10 }}</li>
                         {% endif %}
@@ -47,7 +47,7 @@
                         {% if place_dict.pm1 > 35 %}
                         <li style="color:red;">pm1 : {{ place_dict.pm1 }}</li>
                         {% elif place_dict.pm1 <= 35 and place_dict.pm1 > 17 %}
-                        <li style="color:yellow;">pm1 : {{ place_dict.pm1 }}</li>
+                        <li style="color:orange;">pm1 : {{ place_dict.pm1 }}</li>
                         {% else %}}
                         <li style="color:green;">pm1 : {{ place_dict.pm1 }}</li>
                         {% endif %}
@@ -55,7 +55,7 @@
                         {% if place_dict.co2 > 1000 %}
                         <li style="color:red;">co2 : {{ place_dict.co2 }}</li>
                         {% elif place_dict.co2 <= 1000 and place_dict.co2 > 333 %}
-                        <li style="color:yellow;">co2 : {{ place_dict.co2 }}</li>
+                        <li style="color:orange;">co2 : {{ place_dict.co2 }}</li>
                         {% else %}}
                         <li style="color:green;">co2 : {{ place_dict.co2 }}</li>
                         {% endif %}
@@ -63,7 +63,7 @@
                         {% if place_dict.hcho > 0.08 %}
                         <li style="color:red;">hcho : {{ place_dict.hcho }}</li>
                         {% elif place_dict.hcho <= 0.08 and place_dict.hcho > 0.026 %}
-                        <li style="color:yellow;">hcho : {{ place_dict.hcho }}</li>
+                        <li style="color:orange;">hcho : {{ place_dict.hcho }}</li>
                         {% else %}}
                         <li style="color:green;">hcho : {{ place_dict.hcho }}</li>
                         {% endif %}
@@ -71,7 +71,7 @@
                         {% if place_dict.tvoc > 0.56 %}
                         <li style="color:red;">tvoc : {{ place_dict.tvoc }}</li>
                         {% elif place_dict.tvoc <= 0.56 and place_dict.tvoc > 0.18 %}
-                        <li style="color:yellow;">tvoc : {{ place_dict.tvoc }}</li>
+                        <li style="color:orange;">tvoc : {{ place_dict.tvoc }}</li>
                         {% else %}}
                         <li style="color:green;">tvoc : {{ place_dict.tvoc }}</li>
                         {% endif %}
@@ -79,7 +79,7 @@
                         {% if place_dict.co > 9 %}
                         <li style="color:red;">co : {{ place_dict.co }}</li>
                         {% elif place_dict.co <= 9 and place_dict.co > 3 %}
-                        <li style="color:yellow;">co : {{ place_dict.co }}</li>
+                        <li style="color:orange;">co : {{ place_dict.co }}</li>
                         {% else %}}
                         <li style="color:green;">co : {{ place_dict.co }}</li>
                         {% endif %}
