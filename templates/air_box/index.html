@@ -1,95 +1,115 @@
 <html>
-    <head>
-        <meta charset = "UTF-8">
-        <title>空氣盒子</title>
-        <style>
-            details {
-              border: 2px solid #aaa;
-              border-radius: 4px;
-              padding: 0.5em 0.5em 0;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>空氣盒子</title>
+    <style>
+        details {
+          border: 2px solid #aaa;
+          border-radius: 4px;
+          padding: 0.5em 0.5em 0;
+        }
 
-            summary {
-              font-weight: bold;
-              margin: -0.5em -0.5em 0;
-              padding: 0.5em;
-            }
+        summary {
+          font-weight: bold;
+          margin: -0.5em -0.5em 0;
+          padding: 0.5em;
+        }
 
-            details[open] {
-              padding: 0.5em;
-            }
-        </style>
-    </head>
-    <body>
-        <div style="width:500px; float:left; height:200px;">
-            <h2>Online</h2>
-            {% for place, place_dict in place_data_dict.items %}
-            <div>
-                <details>
-                    <summary style="background-color:{{ place_dict.color }};">{{ place }}</summary>
-                    <ul>
-                        {% if place_dict.pm25 > 35 %}
-                        <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
-                        {% else %}
-                        <li style="color:green;">pm25 : {{ place_dict.pm25 }}</li>
-                        {% endif %}
-
-                        {% if place_dict.pm10 > 75 %}
-                        <li style="color:red;">pm10 : {{ place_dict.pm10 }}</li>
-                        {% else %}
-                        <li style="color:green;">pm10 : {{ place_dict.pm10 }}</li>
-                        {% endif %}
-
-                        {% if place_dict.pm1 > 35 %}
-                        <li style="color:red;">pm1 : {{ place_dict.pm1 }}</li>
-                        {% else %}
-                        <li style="color:green;">pm1 : {{ place_dict.pm1 }}</li>
-                        {% endif %}
-
-                        {% if place_dict.co2 > 1000 %}
-                        <li style="color:red;">co2 : {{ place_dict.co2 }}</li>
-                        {% else %}
-                        <li style="color:green;">co2 : {{ place_dict.co2 }}</li>
-                        {% endif %}
-
-                        {% if place_dict.hcho > 0.08 %}
-                        <li style="color:red;">hcho : {{ place_dict.hcho }}</li>
-                        {% else %}
-                        <li style="color:green;">hcho : {{ place_dict.hcho }}</li>
-                        {% endif %}
-
-                        {% if place_dict.tvoc > 0.56 %}
-                        <li style="color:red;">tvoc : {{ place_dict.tvoc }}</li>
-                        {% else %}
-                        <li style="color:green;">tvoc : {{ place_dict.tvoc }}</li>
-                        {% endif %}
-
-                        {% if place_dict.co > 9 %}
-                        <li style="color:red;">co : {{ place_dict.co }}</li>
-                        {% else %}
-                        <li style="color:green;">co : {{ place_dict.co }}</li>
-                        {% endif %}
-
-                        <li>t  : {{ place_dict.t }}</li>
-                        <li>h : {{ place_dict.h }}</li>
-                        <li>status : {{ place_dict.status }}</li>
-                        <li>time: {{ place_dict.time }}</li>
-                    </ul>
-                </details>
-            </div>
-            {% endfor %}
-
-        </div>
-        <div style="width:500px; float:right; height:200px;">
-            <h2>Offline</h2>
-            {% for place, place_dict in offline_place_data_dict.items %}
-            <h3>{{ place }}</h3>
+        details[open] {
+          padding: 0.5em;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td>國家</td>
+        <td>首都</td>
+        <td>人口</td>
+        <td>語言</td>
+    </tr>
+    <tr>
+        <td>USA</td>
+        <td>Washington D.C.</td>
+        <td>309 million</td>
+        <td>English</td>
+    </tr>
+    <tr>
+        <td>Sweden</td>
+        <td>Stockholm</td>
+        <td>9 million</td>
+        <td>Swedish</td>
+    </tr>
+</table>
+<div style="width:500px; float:left; height:200px;">
+    <h2>Online</h2>
+    {% for place, place_dict in place_data_dict.items %}
+    <div>
+        <details>
+            <summary style="background-color:{{ place_dict.color }};">{{ place }}</summary>
             <ul>
-                {% for key, value in place_dict.items %}
-                <li>{{ key }} : {{ value }}</li>
-                {% endfor %}
+                {% if place_dict.pm25 > 35 %}
+                <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
+                {% else %}
+                <li style="color:green;">pm25 : {{ place_dict.pm25 }}</li>
+                {% endif %}
+
+                {% if place_dict.pm10 > 75 %}
+                <li style="color:red;">pm10 : {{ place_dict.pm10 }}</li>
+                {% else %}
+                <li style="color:green;">pm10 : {{ place_dict.pm10 }}</li>
+                {% endif %}
+
+                {% if place_dict.pm1 > 35 %}
+                <li style="color:red;">pm1 : {{ place_dict.pm1 }}</li>
+                {% else %}
+                <li style="color:green;">pm1 : {{ place_dict.pm1 }}</li>
+                {% endif %}
+
+                {% if place_dict.co2 > 1000 %}
+                <li style="color:red;">co2 : {{ place_dict.co2 }}</li>
+                {% else %}
+                <li style="color:green;">co2 : {{ place_dict.co2 }}</li>
+                {% endif %}
+
+                {% if place_dict.hcho > 0.08 %}
+                <li style="color:red;">hcho : {{ place_dict.hcho }}</li>
+                {% else %}
+                <li style="color:green;">hcho : {{ place_dict.hcho }}</li>
+                {% endif %}
+
+                {% if place_dict.tvoc > 0.56 %}
+                <li style="color:red;">tvoc : {{ place_dict.tvoc }}</li>
+                {% else %}
+                <li style="color:green;">tvoc : {{ place_dict.tvoc }}</li>
+                {% endif %}
+
+                {% if place_dict.co > 9 %}
+                <li style="color:red;">co : {{ place_dict.co }}</li>
+                {% else %}
+                <li style="color:green;">co : {{ place_dict.co }}</li>
+                {% endif %}
+
+                <li>t : {{ place_dict.t }}</li>
+                <li>h : {{ place_dict.h }}</li>
+                <li>status : {{ place_dict.status }}</li>
+                <li>time: {{ place_dict.time }}</li>
             </ul>
-            {% endfor %}
-        </div>
-    </body>
+        </details>
+    </div>
+    {% endfor %}
+
+</div>
+<div style="width:500px; float:right; height:200px;">
+    <h2>Offline</h2>
+    {% for place, place_dict in offline_place_data_dict.items %}
+    <h3>{{ place }}</h3>
+    <ul>
+        {% for key, value in place_dict.items %}
+        <li>{{ key }} : {{ value }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</div>
+</body>
 </html>
