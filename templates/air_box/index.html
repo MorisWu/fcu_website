@@ -77,12 +77,6 @@
                 <li style="color:green;">pm10 : {{ place_dict.pm10 }}</li>
                 {% endif %}
 
-                {% if place_dict.pm1 > 35 %}
-                <li style="color:red;">pm1 : {{ place_dict.pm1 }}</li>
-                {% else %}
-                <li style="color:green;">pm1 : {{ place_dict.pm1 }}</li>
-                {% endif %}
-
                 {% if place_dict.co2 > 1000 %}
                 <li style="color:red;">co2 : {{ place_dict.co2 }}</li>
                 {% else %}
