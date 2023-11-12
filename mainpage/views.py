@@ -446,8 +446,8 @@ def air_box_garph(request):
         time_list.append(data['time'])
 
     pm25_dict = {
-        'x':time_list,
-        'y':pm25_list
+        'time':time_list,
+        'ppm':pm25_list
     }
 
     pm25_trace = px.line(
