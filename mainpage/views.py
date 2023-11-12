@@ -8,6 +8,7 @@ import requests as res
 import ast
 from datetime import datetime
 import plotly.express as px
+import pandas as pd
 
 application_list = [
     '3ds Max 2022',
@@ -448,10 +449,15 @@ def air_box_garph(request):
         co_list.append(data['co'])
         time_list.append(data['time'])
 
+    pm25_df = pd.DataFrame(dict(
+        x=time_list,
+        y=pm25_list
+    ))
+
     pm25_trace = px.line(
         pm25_list,
-        x=time_list,
-        y=pm25_list,
+        x='time',
+        y='ppm',
         title='pm2.5',
     )
 
