@@ -425,7 +425,7 @@ def air_box_garph(request):
     if 'location' in request.POST and request.POST['location'] != '':
         location = request.POST['location']
 
-    air_data = airbox_data.objects.filter(location=location)
+    air_data = airbox_data.objects.filter(location=location).values
 
     pm25_list = []
     pm10_list = []
