@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data
+from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, airbox_data
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
@@ -425,7 +425,7 @@ def air_box_garph(request):
     if 'location' in request.POST and request.POST['location'] != '':
         location = request.POST['location']
 
-    air_data = pre_process_online_amount_data.objects.filter(location=location)
+    air_data = airbox_data.objects.filter(location=location)
 
     pm25_list = []
     pm10_list = []
