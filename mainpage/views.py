@@ -437,10 +437,6 @@ def air_box_garph(request):
     time_list = []
 
     for data in air_data.values():
-
-        time = datetime.fromisoformat(data['time'])
-        data.time = time.strftime("%Y-%m-%d %H:%M:%S")
-
         pm25_list.append(data['pm25'])
         pm10_list.append(data['pm10'])
         pm1_list.append(data['pm1'])
