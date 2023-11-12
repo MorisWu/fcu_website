@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.db.models import Max
 import requests as res
 import ast
+from datetime import datetime
+import plotly.express as px
 
 application_list = [
     '3ds Max 2022',
@@ -101,6 +103,49 @@ application_list = [
     '＊雲端校務123上課講義＊'
 ]
 
+location_list = [
+    '人言_405',
+    '人言_402',
+    '人言_503',
+    '人言_502',
+    '人言_707',
+    '人言_603',
+    '人言_401',
+    '人言_608',
+    '人言_607',
+    '資電_IDC機房',
+    '人言_704',
+    '人言_504',
+    '人言_604',
+    '人言_404',
+    '人言_605',
+    '人言_703',
+    '人言_506',
+    '人言_702',
+    '人言_701',
+    '人言_403',
+    '人言_407',
+    '人言_706',
+    '人言_708',
+    '人言_507',
+    '人言_505',
+    '人言_606',
+    '人言_501',
+    '人言_B120',
+    '人言_508',
+    '人言_202',
+    '人言_203',
+    '人言_B119',
+    '人言_408',
+    '人言_B117',
+    '人言_B116',
+    '人言_705',
+    '資電_248',
+    '紀念_303',
+    '工學_319',
+    '紀念_302',
+    '資電_234',
+]
 
 def mainpage(request):
     if not request.user.is_authenticated:
@@ -359,11 +404,63 @@ def air_box(request):
         'co': 9
     }
 
-
     context = {
         'place_data_dict': place_data_dict,
         'place_data_dict': place_data_dict,
         'offline_place_data_dict': offline_place_data_dict,
         'values_threshold':values_threshold,
     }
+
     return render(request, 'air_box/index.html', context)
+
+def air_box_garph(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
+
+    global location_list
+
+    location = location_list[0]
+
+    if 'location' in request.POST and request.POST['location'] != '':
+        location = request.POST['location']
+
+    air_data = pre_process_online_amount_data.objects.filter(application_name=location)
+
+    pm25_list = []
+    pm10_list = []
+    pm1_list = []
+    co2_list = []
+    hcho_list = []
+    tvoc_list = []
+    co_list = []
+    time_list = []
+
+    for data in air_data:
+        time = datetime.fromisoformat(data['time'])
+        data['time'] = time.strftime("%Y-%m-%d %H:%M:%S")
+
+        pm25_list.append(data['pm25'])
+        pm10_list.append(data['pm10'])
+        pm1_list.append(data['pm1'])
+        co2_list.append(data['co2'])
+        hcho_list.append(data['hcho'])
+        tvoc_list.append(data['tvoc'])
+        co_list.append(data['co'])
+        time_list.append(data['time'])
+
+    pm25_trace = px.line(
+        pm25_list,
+        x='time',
+        y='ppm',
+        title='pm2.5'
+    )
+
+    pm25_div = opy.plot(pm25_trace, auto_open=False, output_type='div')
+
+    context = {
+        'pm25_graph':pm25_div
+    }
+
+    return render(request, 'air_box/air_box_graph.html', context)
+
+
