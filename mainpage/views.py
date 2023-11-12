@@ -450,9 +450,9 @@ def air_box_garph(request):
 
     pm25_trace = px.line(
         pm25_list,
-        x='time',
-        y='ppm',
-        title='pm2.5'
+        x=time_list,
+        y=pm25_list,
+        title='pm2.5',
     )
 
     pm25_div = opy.plot(pm25_trace, auto_open=False, output_type='div')
