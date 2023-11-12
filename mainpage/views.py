@@ -425,7 +425,7 @@ def air_box_garph(request):
     if 'location' in request.POST and request.POST['location'] != '':
         location = request.POST['location']
 
-    air_data = airbox_data.objects.filter(location=location)
+    air_data = airbox_data.objects.filter(location=location).value
 
     pm25_list = []
     pm10_list = []
@@ -437,17 +437,17 @@ def air_box_garph(request):
     time_list = []
 
     for data in air_data:
-        time = datetime.fromisoformat(data.time)
+        time = datetime.fromisoformat(data['time'])
         data.time = time.strftime("%Y-%m-%d %H:%M:%S")
 
-        pm25_list.append(data.pm25)
-        pm10_list.append(data.pm10)
-        pm1_list.append(data.pm1)
-        co2_list.append(data.co2)
-        hcho_list.append(data.hcho)
-        tvoc_list.append(data.tvoc)
-        co_list.append(data.co)
-        time_list.append(data.time)
+        pm25_list.append(data['pm25'])
+        pm10_list.append(data['pm10'])
+        pm1_list.append(data['pm1'])
+        co2_list.append(data['co2'])
+        hcho_list.append(data['hcho'])
+        tvoc_list.append(data['tvoc'])
+        co_list.append(data['co'])
+        time_list.append(data['time'])
 
     pm25_df = pd.DataFrame(dict(
         x=time_list,
