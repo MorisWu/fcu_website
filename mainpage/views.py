@@ -436,19 +436,19 @@ def air_box_garph(request):
     co_list = []
     time_list = []
 
-    for data in air_data:
+    for data in air_data.values():
 
-        time = datetime.fromisoformat(data.values()['time'])
-        data.values()['time'] = time.strftime("%Y-%m-%d %H:%M:%S")
+        time = datetime.fromisoformat(data['time'])
+        data.time = time.strftime("%Y-%m-%d %H:%M:%S")
 
-        pm25_list.append(data.values()['pm25'])
-        pm10_list.append(data.values()['pm10'])
-        pm1_list.append(data.values()['pm1'])
-        co2_list.append(data.values()['co2'])
-        hcho_list.append(data.values()['hcho'])
-        tvoc_list.append(data.values()['tvoc'])
-        co_list.append(data.values()['co'])
-        time_list.append(data.values()['time'])
+        pm25_list.append(data['pm25'])
+        pm10_list.append(data['pm10'])
+        pm1_list.append(data['pm1'])
+        co2_list.append(data['co2'])
+        hcho_list.append(data['hcho'])
+        tvoc_list.append(data['tvoc'])
+        co_list.append(data['co'])
+        time_list.append(data['time'])
 
     pm25_df = pd.DataFrame(dict(
         x=time_list,
