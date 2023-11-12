@@ -5,6 +5,15 @@
     <title>Air Box Graph</title>
 </head>
 <body>
+<form method="post">
+    <select name="application">
+        {% for location in location_list %}
+        <option value = "{{location}}">{{location}}</option>
+        {% endfor %}
+    </select>
+    {% csrf_token %}
+    <input type="submit" value="search">
+</form>
 {% autoescape off %}
     {{ pm25_div }}
 {% endautoescape %}

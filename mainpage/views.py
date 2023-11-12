@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect
 from django.db.models import Max
 import requests as res
 import ast
-from datetime import datetime
 import plotly.express as px
 import pandas as pd
 
@@ -452,7 +451,7 @@ def air_box_garph(request):
     ))
 
     pm25_trace = px.line(
-        pm25_list,
+        pm25_df,
         x='time',
         y='ppm',
         title='pm2.5',
@@ -461,7 +460,8 @@ def air_box_garph(request):
     pm25_div = opy.plot(pm25_trace, auto_open=False, output_type='div')
 
     context = {
-        'pm25_graph':pm25_div
+        'pm25_graph':pm25_div,
+        'location_list':location_list
     }
 
     return render(request, 'air_box/air_box_graph.html', context)
