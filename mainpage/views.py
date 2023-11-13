@@ -147,6 +147,15 @@ location_list = [
     '資電_234',
 ]
 
+air_data_list = [
+    'pm25',
+    'pm10',
+    'co2',
+    'hcho',
+    'tvoc',
+    'co'
+]
+
 def mainpage(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -417,69 +426,44 @@ def air_box_garph(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
 
-    global location_list
+    global location_list, air_data_list
 
     location = location_list[0]
+    air_data = air_data_list[0]
 
-    if 'location' in request.POST and request.POST['location'] != '':
+    if 'location' in request.POST and request.POST['location'] != '' and request.POST['air_data'] != '':
         location = request.POST['location']
+        air_data = request.POST['air_data']
 
     air_data = airbox_data.objects.filter(location=location)
 
-    pm25_list = []
-    pm10_list = []
-    pm1_list = []
-    co2_list = []
-    hcho_list = []
-    tvoc_list = []
-    co_list = []
+    data_list = []
     time_list = []
 
     for data in air_data.values():
-        pm25_list.append(data['pm25'])
-        pm10_list.append(data['pm10'])
-        pm1_list.append(data['pm1'])
-        co2_list.append(data['co2'])
-        hcho_list.append(data['hcho'])
-        tvoc_list.append(data['tvoc'])
-        co_list.append(data['co'])
+        data_list.append(data[air_data])
         time_list.append(data['time'])
 
-    pm25_dict = {
+    data_dict = {
         'time':time_list,
-        'ppm':pm25_list
+        'ppm':data_list
     }
 
-    pm25_dict = {
-        'time': time_list,
-        'ppm': pm25_list
-    }
-
-    pm25_dict = {
-        'time': time_list,
-        'ppm': pm25_list
-    }
-
-    pm25_dict = {
-        'time': time_list,
-        'ppm': pm25_list
-    }
-
-    pm25_trace = px.line(
-        pm25_dict,
+    air_trace = px.line(
+        data_dict,
         x='time',
         y='ppm',
-        title='pm2.5',
+        title=air_data,
     )
 
-    pm25_div = opy.plot(pm25_trace, auto_open=False, output_type='div')
+    air_div = opy.plot(air_trace, auto_open=False, output_type='div')
 
     context = {
-        'pm25_graph':pm25_div,
+        'air_graph':air_div,
         'location_list':location_list,
-        'location':location
+        'air_data_list':air_data_list,
+        'location':location,
+        'air_data':air_data
     }
 
     return render(request, 'air_box/air_box_graph.html', context)
-
-

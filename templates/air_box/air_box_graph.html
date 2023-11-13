@@ -12,9 +12,14 @@
         <option value = "{{ location }}">{{ location }}</option>
         {% endfor %}
     </select>
+    <select name="air_data">
+        {% for air_data in air_data_list %}
+        <option value = "{{ air_data_list }}">{{ air_data_list }}</option>
+        {% endfor %}
+    </select>
     {% csrf_token %}
     <input type="submit" value="search">
 </form>
-{{ pm25_graph | safe }}
+{{ air_graph | safe }}
 </body>
 </html>
