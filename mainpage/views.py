@@ -457,7 +457,7 @@ def air_box_garph(request):
             title=air,
             symbol='square',
             hover_data={
-                'ppm': True,
+                'μg/m3': True,
                 'time': True
             }
         )
