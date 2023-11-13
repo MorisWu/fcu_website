@@ -7,7 +7,7 @@
 <body>
 <h1>{{ location }}</h1>
 <form method="post">
-    <select name="application">
+    <select name="location">
         {% for location in location_list %}
         <option value = "{{location}}">{{location}}</option>
         {% endfor %}
