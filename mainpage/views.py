@@ -447,18 +447,16 @@ def air_box_garph(request):
     if air == 'pm10' or air == 'pm25':
         data_dict = {
             'time': time_list,
-            'μg/m3': data_list,
+            'μg/m': data_list,
         }
 
         air_trace = px.line(
             data_dict,
             x='time',
-            y='μg/m3',
+            y='μg/m',
             title=air,
-            hover_data={
-                'μg/m3': True,
-                'time': True
-            }
+            markers=True,
+            marker_symbol='star'
         )
     else:
         data_dict = {
@@ -471,11 +469,8 @@ def air_box_garph(request):
             x='time',
             y='ppm',
             title=air,
-            symbol='square',
-            hover_data={
-                'ppm':True,
-                'time':True
-            }
+            markers=True,
+            marker_symbol='star'
         )
 
     air_div = opy.plot(air_trace, auto_open=False, output_type='div')
