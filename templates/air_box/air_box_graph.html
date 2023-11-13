@@ -8,7 +8,7 @@
 <form method="post">
     <select name="application">
         {% for location in location_list %}
-        <option value = "{{location}}">{{location}}</option>
+        <option value = "{{ location }}">{{ location }}</option>
         {% endfor %}
     </select>
     {% csrf_token %}

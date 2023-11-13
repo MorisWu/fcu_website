@@ -450,6 +450,21 @@ def air_box_garph(request):
         'ppm':pm25_list
     }
 
+    pm25_dict = {
+        'time': time_list,
+        'ppm': pm25_list
+    }
+
+    pm25_dict = {
+        'time': time_list,
+        'ppm': pm25_list
+    }
+
+    pm25_dict = {
+        'time': time_list,
+        'ppm': pm25_list
+    }
+
     pm25_trace = px.line(
         pm25_dict,
         x='time',
