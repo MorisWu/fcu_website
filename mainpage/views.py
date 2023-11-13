@@ -455,8 +455,6 @@ def air_box_garph(request):
             x='time',
             y='μg/m',
             title=air,
-            markers=True,
-            symbol='square'
         )
     else:
         data_dict = {
@@ -469,8 +467,6 @@ def air_box_garph(request):
             x='time',
             y='ppm',
             title=air,
-            markers=True,
-            symbol='square'
         )
 
     air_div = opy.plot(air_trace, auto_open=False, output_type='div')
