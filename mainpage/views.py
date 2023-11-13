@@ -429,11 +429,11 @@ def air_box_garph(request):
     global location_list, air_data_list
 
     location = location_list[0]
-    air_data = air_data_list[0]
+    air = air_data_list[0]
 
-    if 'location' in request.POST and request.POST['location'] != '' and request.POST['air_data'] != '':
+    if 'location' in request.POST and request.POST['location'] != '' and request.POST['air'] != '':
         location = request.POST['location']
-        air_data = request.POST['air_data']
+        air = request.POST['air']
 
     air_data = airbox_data.objects.filter(location=location)
 
@@ -441,7 +441,7 @@ def air_box_garph(request):
     time_list = []
 
     for data in air_data.values():
-        data_list.append(data[air_data])
+        data_list.append(data[air])
         time_list.append(data['time'])
 
     data_dict = {
@@ -453,17 +453,15 @@ def air_box_garph(request):
         data_dict,
         x='time',
         y='ppm',
-        title=air_data,
+        title=air,
     )
 
     air_div = opy.plot(air_trace, auto_open=False, output_type='div')
 
-    context = {
-        'air_graph':air_div,
-        'location_list':location_list,
-        'air_data_list':air_data_list,
-        'location':location,
-        'air_data':air_data
-    }
+    context = dict(air_graph=air_div,
+                   location_list=location_list,
+                   air_data_list=air_data_list,
+                   location=location,
+                   air=air)
 
     return render(request, 'air_box/air_box_graph.html', context)

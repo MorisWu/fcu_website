@@ -12,9 +12,9 @@
         <option value = "{{ location }}">{{ location }}</option>
         {% endfor %}
     </select>
-    <select name="air_data">
-        {% for air_data in air_data_list %}
-        <option value = "{{ air_data_list }}">{{ air_data_list }}</option>
+    <select name="air">
+        {% for air in air_data_list %}
+        <option value = "{{ air }}">{{ air }}</option>
         {% endfor %}
     </select>
     {% csrf_token %}
