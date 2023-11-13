@@ -444,17 +444,30 @@ def air_box_garph(request):
         data_list.append(data[air])
         time_list.append(data['time'])
 
-    data_dict = {
-        'time':time_list,
-        'ppm':data_list
-    }
+    if air == 'pm10' or air == 'pm25':
+        data_dict = {
+            'time': time_list,
+            'μg/m3': data_list
+        }
 
-    air_trace = px.line(
-        data_dict,
-        x='time',
-        y='ppm',
-        title=air,
-    )
+        air_trace = px.line(
+            data_dict,
+            x='time',
+            y='μg/m3',
+            title=air,
+        )
+    else:
+        data_dict = {
+            'time':time_list,
+            'ppm':data_list
+        }
+
+        air_trace = px.line(
+            animation_frame=data_dict,
+            x='time',
+            y='ppm',
+            title=air,
+        )
 
     air_div = opy.plot(air_trace, auto_open=False, output_type='div')
 
