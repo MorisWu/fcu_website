@@ -463,7 +463,7 @@ def air_box_garph(request):
         }
 
         air_trace = px.line(
-            animation_frame=data_dict,
+            data_dict,
             x='time',
             y='ppm',
             title=air,
