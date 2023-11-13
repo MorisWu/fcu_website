@@ -448,7 +448,6 @@ def air_box_garph(request):
         data_dict = {
             'time': time_list,
             'μg/m3': data_list,
-            'symbol':'square'
         }
 
         air_trace = px.line(
@@ -456,7 +455,6 @@ def air_box_garph(request):
             x='time',
             y='μg/m3',
             title=air,
-            symbol='symbol',
             hover_data={
                 'μg/m3': True,
                 'time': True
