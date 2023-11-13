@@ -461,7 +461,8 @@ def air_box_garph(request):
 
     context = {
         'pm25_graph':pm25_div,
-        'location_list':location_list
+        'location_list':location_list,
+        'location':location
     }
 
     return render(request, 'air_box/air_box_graph.html', context)
