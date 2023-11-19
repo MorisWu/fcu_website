@@ -60,56 +60,65 @@
 </table>
 <div style="width:500px; float:left; height:200px;">
     <h2>Online</h2>
-    {% for place, place_dict in place_data_dict.items %}
-    <div>
-        <details>
-            <summary style="background-color:{{ place_dict.color }};">{{ place }}</summary>
-            <ul>
-                {% if place_dict.pm25 > 35 %}
-                <li style="color:red;">pm25 : {{ place_dict.pm25 }}</li>
-                {% else %}
-                <li style="color:green;">pm25 : {{ place_dict.pm25 }}</li>
-                {% endif %}
+    <table>
+        <tr>
+            <td>地點</td>
+            <td>CO2</td>
+            <td>CO</td>
+            <td>HCHO</td>
+            <td>TVOC</td>
+            <td>PM10</td>
+            <td>PM2.5</td>
+            <td>溫度</td>
+            <td>濕度</td>
+            <td>時間</td>
+        </tr>
+        {% for place, place_dict in place_data_dict.items %}
+        <tr>
+            <td>{{ place }}</td>
 
-                {% if place_dict.pm10 > 75 %}
-                <li style="color:red;">pm10 : {{ place_dict.pm10 }}</li>
-                {% else %}
-                <li style="color:green;">pm10 : {{ place_dict.pm10 }}</li>
-                {% endif %}
+            {% if place_dict.co2 > 1000 %}
+            <td style="background-color:red;">{{ place_dict.co2 }}</td>
+            {% else %}
+            <td style="background-color:forestgreen;">{{ place_dict.co2 }}</td>
+            {% endif %}
 
-                {% if place_dict.co2 > 1000 %}
-                <li style="color:red;">co2 : {{ place_dict.co2 }}</li>
-                {% else %}
-                <li style="color:green;">co2 : {{ place_dict.co2 }}</li>
-                {% endif %}
+            {% if place_dict.co > 9 %}
+            <td style="background-color:red;">{{ place_dict.co }}</td>
+            {% else %}
+            <td style="background-color:forestgreen;">{{ place_dict.co }}</td>
+            {% endif %}
 
-                {% if place_dict.hcho > 0.08 %}
-                <li style="color:red;">hcho : {{ place_dict.hcho }}</li>
-                {% else %}
-                <li style="color:green;">hcho : {{ place_dict.hcho }}</li>
-                {% endif %}
+            {% if place_dict.hcho > 0.08 %}
+            <td style="background-color:red;">{{ place_dict.hcho }}</td>
+            {% else %}
+            <td style="background-color:forestgreen;">{{ place_dict.hcho }}</td>
+            {% endif %}
 
-                {% if place_dict.tvoc > 0.56 %}
-                <li style="color:red;">tvoc : {{ place_dict.tvoc }}</li>
-                {% else %}
-                <li style="color:green;">tvoc : {{ place_dict.tvoc }}</li>
-                {% endif %}
+            {% if place_dict.tvoc > 0.56 %}
+            <td style="background-color:red;">{{ place_dict.tvoc }}</td>
+            {% else %}
+            <td style="background-color:forestgreen;">{{ place_dict.tvoc }}</td>
+            {% endif %}
 
-                {% if place_dict.co > 9 %}
-                <li style="color:red;">co : {{ place_dict.co }}</li>
-                {% else %}
-                <li style="color:green;">co : {{ place_dict.co }}</li>
-                {% endif %}
+            {% if place_dict.pm10 > 75 %}
+            <td style="background-color:red;">{{ place_dict.pm10 }}</td>
+            {% else %}
+            <td style="background-color:forestgreen;">{{ place_dict.pm10 }}</td>
+            {% endif %}
 
-                <li>t : {{ place_dict.t }}</li>
-                <li>h : {{ place_dict.h }}</li>
-                <li>status : {{ place_dict.status }}</li>
-                <li>time: {{ place_dict.time }}</li>
-            </ul>
-        </details>
-    </div>
-    {% endfor %}
+            {% if place_dict.pm25 > 35 %}
+            <td style="background-color:red;">{{ place_dict.pm25 }}</td>
+            {% else %}
+            <td style="background-color:forestgreen;">{{ place_dict.pm25 }}</td>
+            {% endif %}
 
+            <td>{{ place_dict.t }}</td>
+            <td>{{ place_dict.h }}</td>
+            <td>{{ place_dict.time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 <div style="width:500px; float:right; height:200px;">
     <h2>Offline</h2>

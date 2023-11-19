@@ -415,7 +415,6 @@ def air_box(request):
 
     context = {
         'place_data_dict': place_data_dict,
-        'place_data_dict': place_data_dict,
         'offline_place_data_dict': offline_place_data_dict,
         'values_threshold':values_threshold,
     }
