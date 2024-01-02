@@ -237,14 +237,19 @@ def vanse_month_data(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(
-        max_usage=Max('amount'))
+    application_usage_data = vanse_data.objects.filter(application_name=app).annotate(
+        year=ExtractYear('date'),
+        month=ExtractMonth('date')
+    ).values('year', 'month').annotate(
+        max_usage=Max('amount')
+    ).order_by('year', 'month')
 
     date_list = []
     num_list = []
 
     for i in application_usage_data:
-        date_list.append(i['date__month'])
+        year_month = f"{i['year']}-{str(i['month']).zfill(2)}"  # 格式化為 'YYYY-MM'
+        date_list.append(year_month)
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
@@ -253,8 +258,6 @@ def vanse_month_data(request):
                 name="test",
                 x=date_list,
                 y=num_list,
-                offsetgroup=0,
-                width=0.1
             ),
         ],
         layout=go.Layout(
@@ -263,10 +266,6 @@ def vanse_month_data(request):
             xaxis_title="month",
             width=1500,
             height=750,
-            xaxis=dict(
-                tickmode='linear',
-                dtick=1
-            )
         )
     )
 
@@ -300,21 +299,32 @@ def citrix_vans_month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values(
-        'date__month').annotate(max_usage=Max('amount')).order_by('date__month')
-    vans_online_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(
-        max_usage=Max('amount')).order_by('date__month')
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).annotate(
+        year=ExtractYear('date'),
+        month=ExtractMonth('date')
+    ).values('year', 'month').annotate(
+        max_usage=Max('amount')
+    ).order_by('year', 'month')
+
+    vans_online_data = vanse_data.objects.filter(application_name=app).annotate(
+        year=ExtractYear('date'),
+        month=ExtractMonth('date')
+    ).values('year', 'month').annotate(
+        max_usage=Max('amount')
+    ).order_by('year', 'month')
 
     date_list = []
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i['date__month'])
+        year_month = f"{i['year']}-{str(i['month']).zfill(2)}"  # 格式化為 'YYYY-MM'
+        date_list.append(year_month)
         num_list.append(i['max_usage'])
 
     for i in vans_online_data:
+        year_month = f"{i['year']}-{str(i['month']).zfill(2)}"
         for j in range(len(date_list)):
-            if i['date__month'] == date_list[j]:
+            if year_month == date_list[j]:
                 num_list[j] += i['max_usage']
 
     trace = go.Figure(
@@ -323,8 +333,6 @@ def citrix_vans_month_online(request):
                 name="test",
                 x=date_list,
                 y=num_list,
-                offsetgroup=0,
-                width=0.1
             ),
         ],
         layout=go.Layout(
@@ -333,10 +341,6 @@ def citrix_vans_month_online(request):
             xaxis_title="month",
             width=1500,
             height=750,
-            xaxis=dict(
-                tickmode='linear',
-                dtick=1
-            )
         )
     )
 
