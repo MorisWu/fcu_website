@@ -190,7 +190,6 @@ def month_online(request):
         date_list.append(year_month)
         num_list.append(i['max_usage'])
 
-    i['max_usag']
     trace = go.Figure(
         data=[
             go.Bar(
