@@ -9,6 +9,7 @@ import requests as res
 import ast
 import plotly.express as px
 import pandas as pd
+from django.db.models import Func, F
 
 application_list = [
     '3ds Max 2022',
@@ -163,6 +164,9 @@ def mainpage(request):
     else:
         return render(request, 'mainpage/index.html')
 
+class DateFormat(Func):
+    function = 'DATE_FORMAT'
+    template = "%(function)s(%(expressions)s, '%%Y-%%m')"
 
 def month_online(request):
     if not request.user.is_authenticated:
@@ -175,16 +179,16 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app)
-    application_online_data = application_online_data.annotate(
-        year=ExtractYear('date'),
-        month=ExtractMonth('date')
+    application_online_data = pre_process_online_amount_data.objects.filter(
+        application_name=app
     ).annotate(
-        year_month=Concat(
-            'year', Value('-'), 'month',
-            output_field=CharField()
-        )
-    ).values('year_month').annotate(max_usage=Max('amount')).order_by('year_month')
+        year_month=DateFormat('date')
+    ).values(
+        'year_month'
+    ).annotate(
+        max_usage=Max('amount')
+    ).order_by('year_month')
+
     date_list = []
     num_list = []
 
