@@ -236,14 +236,14 @@ def vanse_month_data(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = vanse_data.objects.filter(application_name=app).values('date__month').annotate(
+    application_usage_data = vanse_data.objects.filter(application_name=app).values('date').annotate(
         max_usage=Max('amount'))
 
     date_list = []
     num_list = []
 
     for i in application_usage_data:
-        date_list.append(i['date__month'])
+        date_list.append(i['date'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
