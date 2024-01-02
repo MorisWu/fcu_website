@@ -188,8 +188,8 @@ def month_online(request):
     for i in application_online_data:
         year_month = f"{i['year']}-{str(i['month']).zfill(2)}"  # 格式化為 'YYYY-MM'
         date_list.append(year_month)
-        num_list.append(i['max_usag'])
-
+        num_list.append(i['max_usage'])
+2
     trace = go.Figure(
         data=[
             go.Bar(
