@@ -3,8 +3,8 @@ from database_model.models import pre_process_online_amount_data, application_au
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
-from django.db.models.functions import ExtractYear, ExtractMonth
-from django.db.models import Max
+from django.db.models.functions import ExtractYear, ExtractMonth, Concat
+from django.db.models import Max, Value, CharField
 import requests as res
 import ast
 import plotly.express as px
@@ -179,12 +179,17 @@ def month_online(request):
     application_online_data = application_online_data.annotate(
         year=ExtractYear('date'),
         month=ExtractMonth('date')
-    ).values('year', 'month').annotate(max_usage=Max('amount')).order_by('year', 'month')
+    ).annotate(
+        year_month=Concat(
+            'year', Value('-'), 'month',
+            output_field=CharField()
+        )
+    ).values('year_month').annotate(max_usage=Max('amount')).order_by('year_month')
     date_list = []
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i['date'])
+        date_list.append(i['year_month'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
