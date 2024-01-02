@@ -164,10 +164,6 @@ def mainpage(request):
     else:
         return render(request, 'mainpage/index.html')
 
-class DateFormat(Func):
-    function = 'DATE_FORMAT'
-    template = "%(function)s(%(expressions)s, '%%Y-%%m')"
-
 def month_online(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -179,21 +175,19 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(
-        application_name=app
-    ).annotate(
-        year_month=DateFormat('date')
-    ).values(
-        'year_month'
-    ).annotate(
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).annotate(
+        year=ExtractYear('date'),
+        month=ExtractMonth('date')
+    ).values('year', 'month').annotate(
         max_usage=Max('amount')
-    ).order_by('year_month')
+    ).order_by('year', 'month')
 
     date_list = []
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i['year_month'])
+        year_month = f"{i['year']}-{str(i['month']).zfill(2)}"  # 格式化為 'YYYY-MM'
+        date_list.append(year_month)
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
