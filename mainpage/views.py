@@ -206,10 +206,6 @@ def month_online(request):
             xaxis_title="month",
             width=1500,
             height=750,
-            xaxis=dict(
-                tickmode='linear',
-                dtick=1
-            )
         )
     )
 
