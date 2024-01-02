@@ -3,6 +3,7 @@ from database_model.models import pre_process_online_amount_data, application_au
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
+from django.db.models.functions import ExtractYear, ExtractMonth
 from django.db.models import Max
 import requests as res
 import ast
@@ -174,13 +175,16 @@ def month_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app).values(
-        'date').annotate(max_usage=Max('amount'))
+    application_online_data = pre_process_online_amount_data.objects.filter(application_name=app)
+    application_online_data = application_online_data.annotate(
+        year=ExtractYear('date'),
+        month=ExtractMonth('date')
+    ).values('year', 'month').annotate(max_usage=Max('amount')).order_by('year', 'month')
     date_list = []
     num_list = []
 
     for i in application_online_data:
-        date_list.append(i['date'])
+        date_list.append(i['date__month'])
         num_list.append(i['max_usage'])
 
     trace = go.Figure(
