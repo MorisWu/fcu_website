@@ -382,7 +382,7 @@ def air_box(request):
     value_keys = values_threshold.keys()
 
     if data_dict['status'] == 'ok':
-        for data in data_dict['entries']:
+        for data in data_dict['exclusion']:
             place_dict = {}
             place_dict['pm25'] = data['pm25']
             place_dict['pm10'] = data['pm10']
