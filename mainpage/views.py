@@ -366,7 +366,8 @@ def citrix_vans_month_online(request):
 def air_box(request):
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
     get_raw_data = res.get(url).text
-    data_dict = ast.literal_eval(get_raw_data)
+    #data_dict = ast.literal_eval(get_raw_data)
+    data_dict=get_raw_data
     place_data_dict = {}
     offline_place_data_dict = {}
 
