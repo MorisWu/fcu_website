@@ -248,7 +248,7 @@ def citrix_week_online(request):
         data=[
             go.Bar(
                 name="test",
-                x=pd_dataframe['id'],
+                x=pd_dataframe['date'],
                 y=pd_dataframe['amount'],
             ),
         ],
