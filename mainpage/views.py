@@ -241,7 +241,7 @@ def citrix_week_online(request):
 
     pd_dataframe = pd.DataFrame.from_records(pre_process_online_amount_data.objects.filter(application_name=app).values(), index=['date'])
 
-    pd_dataframe.resample('w').max()
+    pd_dataframe['amount'].resample('w').max()
 
     trace = go.Figure(
         data=[
