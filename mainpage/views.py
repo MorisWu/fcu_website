@@ -1,14 +1,15 @@
 from django.shortcuts import render
-from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, airbox_data
+from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, \
+    airbox_data
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.http import HttpResponseRedirect
-from django.db.models.functions import ExtractYear, ExtractMonth, Concat
-from django.db.models import Max, Value, CharField
+from django.db.models.functions import ExtractYear, ExtractMonth
+from django.db.models import Max
 import requests as res
-import ast
 import plotly.express as px
 import json
+import pandas as pd
 
 application_list = [
     '3ds Max 2022',
@@ -157,11 +158,13 @@ air_data_list = [
     'co'
 ]
 
+
 def mainpage(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
     else:
         return render(request, 'mainpage/index.html')
+
 
 def month_online(request):
     if not request.user.is_authenticated:
@@ -225,6 +228,23 @@ def month_online(request):
     return render(request, 'citrix_log_page/online_month_amount.html', context)
 
 
+def citrix_week_online(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
+
+    global application_list
+
+    app = '校務系統'
+
+    if 'application' in request.POST and request.POST['application'] != '':
+        app = request.POST['application']
+
+    pd_dataframe = pd.DataFrame.from_records(pre_process_online_amount_data.objects.filter(application_name=app).values())
+
+    return render(request, 'citrix_log_page/online_month_amount.html', pd_dataframe)
+
+
+
 def vanse_month_data(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login/')
@@ -285,6 +305,10 @@ def vanse_month_data(request):
                }
 
     return render(request, 'citrix_log_page/vans_online_month_amount.html', context)
+
+
+def vanse_week_data(request):
+    pass
 
 
 def citrix_vans_month_online(request):
@@ -362,6 +386,10 @@ def citrix_vans_month_online(request):
     return render(request, 'citrix_log_page/citrix_vans_month_amount.html', context)
 
 
+def citr_vanse_week_data(request):
+    pass
+
+
 def air_box(request):
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
     get_raw_data = res.get(url).text
@@ -420,10 +448,11 @@ def air_box(request):
     context = {
         'place_data_dict': place_data_dict,
         'offline_place_data_dict': offline_place_data_dict,
-        'values_threshold':values_threshold,
+        'values_threshold': values_threshold,
     }
 
     return render(request, 'air_box/index.html', context)
+
 
 def air_box_garph(request):
     if not request.user.is_authenticated:
@@ -461,8 +490,8 @@ def air_box_garph(request):
         )
     else:
         data_dict = {
-            'time':time_list,
-            'ppm':data_list
+            'time': time_list,
+            'ppm': data_list
         }
 
         air_trace = px.line(
