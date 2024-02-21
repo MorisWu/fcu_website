@@ -243,9 +243,9 @@ def citrix_week_online(request):
 
     pd_dataframe = pd_dataframe.resample('w', on='date').max()
 
-    pd.options.plotting.backend = "plotly"
+    import plotly.express as px
 
-    trace = pd_dataframe.plot.bar()
+    trace = px.bar(pd_dataframe)
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
