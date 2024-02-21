@@ -241,7 +241,7 @@ def citrix_week_online(request):
 
     pd_dataframe = pd.DataFrame.from_records(pre_process_online_amount_data.objects.filter(application_name=app).values())
 
-    return render(request, 'citrix_log_page/online_month_amount.html', pd_dataframe)
+    return render(request, 'citrix_log_page/online_month_amount.html')
 
 
 
