@@ -338,6 +338,7 @@ def vanse_week_data(request):
         trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
     except:
         trace = px.bar(x=[datetime.date.today()], y=[0])
+
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'bar': bar_div,
@@ -423,9 +424,37 @@ def citrix_vans_month_online(request):
     return render(request, 'citrix_log_page/citrix_vans_month_amount.html', context)
 
 
-def citr_vanse_week_data(request):
-    pass
+def citrix_vanse_week_data(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
 
+    global application_list
+
+    app = '校務系統'
+
+    if 'application' in request.POST and request.POST['application'] != '':
+        app = request.POST['application']
+
+    citrix_pd_dataframe = pd.DataFrame.from_records(
+        pre_process_online_amount_data.objects.filter(application_name=app).values())
+
+    vanse_pd_dataframe = pd.DataFrame.from_records(
+        vanse_data.objects.filter(application_name=app).values())
+
+    pd_dataframe = pd.concat([citrix_pd_dataframe, vanse_pd_dataframe])
+
+    pd_dataframe = pd_dataframe.resample('w', on='date').max()
+
+    trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
+
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+    context = {'bar': bar_div,
+               'app_name': [app],
+               'app_list': application_list,
+               }
+
+    return render(request, 'citrix_log_page/citrix_vanse_week_amount.html', context)
 
 def air_box(request):
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
