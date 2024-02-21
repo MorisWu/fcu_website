@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, \
     airbox_data
@@ -335,7 +337,7 @@ def vanse_week_data(request):
         pd_dataframe = pd_dataframe.resample('w', on='date').max()
         trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
     except:
-        trace = px.bar(x=[0], y=[0])
+        trace = px.bar(x=[datetime.datetime.now()], y=[0])
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'bar': bar_div,
@@ -343,7 +345,7 @@ def vanse_week_data(request):
                'app_list': application_list,
                }
 
-    return render(request, 'citrix_log_page/citrix_week_amount.html', context)
+    return render(request, 'citrix_log_page/vanse_week_amount.html', context)
 
 
 def citrix_vans_month_online(request):
