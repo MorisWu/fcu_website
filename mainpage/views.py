@@ -241,34 +241,11 @@ def citrix_week_online(request):
 
     pd_dataframe = pd.DataFrame.from_records(pre_process_online_amount_data.objects.filter(application_name=app).values())
 
-    pd_dataframe=pd_dataframe.set_index('date')
-    pd_dataframe['amount'].resample('w').max()
+    pd_dataframe.resample('w', on='date').max()
 
-    weeks=[]
+    pd.options.plotting.backend = "plotly"
 
-    for i in pd_dataframe.index:
-        weeks.append(i)
-
-    amount = []
-    for i in pd_dataframe['amount']:
-        amount.append(i)
-
-    trace = go.Figure(
-        data=[
-            go.Bar(
-                name="test",
-                x=weeks,
-                y=amount,
-            ),
-        ],
-        layout=go.Layout(
-            title=app,
-            yaxis_title="number",
-            xaxis_title="date",
-            width=1500,
-            height=750,
-        )
-    )
+    trace = pd_dataframe.plot.bar()
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
