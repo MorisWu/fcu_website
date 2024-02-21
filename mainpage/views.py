@@ -335,7 +335,9 @@ def vanse_week_data(request):
         pd_dataframe = pd_dataframe.resample('w', on='date').max()
         trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
     except:
-        trace = px.bar(x=[], y=[])
+        a=[]
+        b=[]
+        trace = px.bar(x=a, y=b)
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
     context = {'bar': bar_div,
