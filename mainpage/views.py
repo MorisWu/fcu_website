@@ -241,7 +241,7 @@ def citrix_week_online(request):
 
     pd_dataframe = pd.DataFrame.from_records(pre_process_online_amount_data.objects.filter(application_name=app).values())
 
-    pd_dataframe.resample('w', on='date').max()
+    pd_dataframe = pd_dataframe.resample('w', on='date').max()
 
     pd.options.plotting.backend = "plotly"
 
