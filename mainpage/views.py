@@ -243,8 +243,6 @@ def citrix_week_online(request):
 
     pd_dataframe = pd_dataframe.resample('w', on='date').max()
 
-    import plotly.express as px
-
     trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
@@ -331,10 +329,18 @@ def vanse_week_data(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    application_usage_data = vanse_data.objects.filter(application_name=app)
+    pd_dataframe = pd.DataFrame.from_records(vanse_data.objects.filter(application_name=app).values())
 
+    pd_dataframe = pd_dataframe.resample('w', on='date').max()
+    trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
-    pass
+    context = {'bar': bar_div,
+               'app_name': [app],
+               'app_list': application_list,
+               }
+
+    return render(request, 'citrix_log_page/citrix_week_amount.html', context)
 
 
 def citrix_vans_month_online(request):

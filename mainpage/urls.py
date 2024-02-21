@@ -9,6 +9,7 @@ urlpatterns = [
     path('vans_citrix_monthly/', views.citrix_vans_month_online),
 
     path('citrix_online_weekly/', views.citrix_week_online),
+    path('vanse_usage_weekly/', views.vanse_week_data),
 
     path('air_box/', views.air_box),
     path('air_box_graph/', views.air_box_garph)
