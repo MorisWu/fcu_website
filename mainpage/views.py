@@ -245,7 +245,7 @@ def citrix_week_online(request):
 
     import plotly.express as px
 
-    trace = px.bar(pd_dataframe)
+    trace = px.bar(pd_dataframe, x='date', y='amount')
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
