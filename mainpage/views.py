@@ -321,6 +321,19 @@ def vanse_month_data(request):
 
 
 def vanse_week_data(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login/')
+
+    global application_list
+
+    app = '校務系統'
+
+    if 'application' in request.POST and request.POST['application'] != '':
+        app = request.POST['application']
+
+    application_usage_data = vanse_data.objects.filter(application_name=app)
+
+
     pass
 
 
