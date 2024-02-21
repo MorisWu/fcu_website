@@ -244,7 +244,31 @@ def citrix_week_online(request):
     pd_dataframe = pd_dataframe.set_index('date')
     pd_dataframe.resample('w').max()
 
-    return render(request, 'citrix_log_page/citrix_week_amount.html')
+    trace = go.Figure(
+        data=[
+            go.Bar(
+                name="test",
+                x=pd_dataframe['date'],
+                y=pd_dataframe['amount'],
+            ),
+        ],
+        layout=go.Layout(
+            title=app,
+            yaxis_title="number",
+            xaxis_title="date",
+            width=1500,
+            height=750,
+        )
+    )
+
+    bar_div = opy.plot(trace, auto_open=False, output_type='div')
+
+    context = {'bar': bar_div,
+               'app_name': [app],
+               'app_list': application_list,
+               }
+
+    return render(request, 'citrix_log_page/citrix_week_amount.html', context)
 
 
 
