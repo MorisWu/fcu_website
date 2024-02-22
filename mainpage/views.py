@@ -312,7 +312,7 @@ def vanse_month_data(request):
         auth_num = 0
 
     context = {'bar': bar_div,
-               'app_name': [app],
+               'app_name': app,
                'app_list': application_list,
                'auth_num': [auth_num]
                }
