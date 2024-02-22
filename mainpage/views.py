@@ -1,17 +1,18 @@
 import datetime
+import json
 
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objs as go
+import plotly.offline as opy
+import requests as res
+from django.db.models import Max
+from django.db.models.functions import ExtractYear, ExtractMonth
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
 from database_model.models import pre_process_online_amount_data, application_authorizations_num, vanse_data, \
     airbox_data
-import plotly.offline as opy
-import plotly.graph_objs as go
-from django.http import HttpResponseRedirect
-from django.db.models.functions import ExtractYear, ExtractMonth
-from django.db.models import Max
-import requests as res
-import plotly.express as px
-import json
-import pandas as pd
 
 application_list = [
     '3ds Max 2022',
@@ -241,7 +242,8 @@ def citrix_week_online(request):
     if 'application' in request.POST and request.POST['application'] != '':
         app = request.POST['application']
 
-    pd_dataframe = pd.DataFrame.from_records(pre_process_online_amount_data.objects.filter(application_name=app).values())
+    pd_dataframe = pd.DataFrame.from_records(
+        pre_process_online_amount_data.objects.filter(application_name=app).values())
 
     pd_dataframe = pd_dataframe.resample('w', on='date').max()
 
@@ -255,7 +257,6 @@ def citrix_week_online(request):
                }
 
     return render(request, 'citrix_log_page/citrix_week_amount.html', context)
-
 
 
 def vanse_month_data(request):
@@ -455,6 +456,7 @@ def citrix_vanse_week_data(request):
                }
 
     return render(request, 'citrix_log_page/citrix_vanse_week_amount.html', context)
+
 
 def air_box(request):
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
