@@ -245,7 +245,7 @@ def citrix_week_online(request):
 
     pd_dataframe = pd_dataframe.resample('w', on='date').max()
 
-    trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
+    trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount', title=app)
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
@@ -335,9 +335,9 @@ def vanse_week_data(request):
 
     try:
         pd_dataframe = pd_dataframe.resample('w', on='date').max()
-        trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
+        trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount', title=app)
     except:
-        trace = px.bar(x=[datetime.date.today()], y=[0])
+        trace = px.bar(x=[datetime.date.today()], y=[0], title=app)
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
@@ -445,7 +445,7 @@ def citrix_vanse_week_data(request):
 
     pd_dataframe = pd_dataframe.resample('w', on='date').max()
 
-    trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount')
+    trace = px.bar(pd_dataframe, x=pd_dataframe.index, y='amount', title=app)
 
     bar_div = opy.plot(trace, auto_open=False, output_type='div')
 
