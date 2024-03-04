@@ -460,11 +460,14 @@ def citrix_vanse_week_data(request):
 
 def air_box(request):
     url = 'https://airbox.edimaxcloud.com/api/tk/query_now?token=ac59b57b-81fb-4fe2-a2e2-d49b25c7f8e5'
-    get_raw_data = res.get(url).text
-    data_dict = json.loads(get_raw_data)
+    get_raw_data = res.get(url).text #取得json格式的data(文本型態)
+    data_dict = json.loads(get_raw_data)#將data轉換為dict
     place_data_dict = {}
     offline_place_data_dict = {}
 
+    '''
+    閾值設定
+    '''
     values_threshold = {
         'pm25': 35,
         'pm10': 75,
@@ -475,10 +478,10 @@ def air_box(request):
         'co': 9
     }
 
-    value_keys = values_threshold.keys()
+    value_keys = values_threshold.keys() #取得所有資料的key
 
     if data_dict['status'] == 'ok':
-        for data in data_dict['exclusion']:
+        for data in data_dict['exclusion']: #在線機器資料
             place_dict = {}
             place_dict['pm25'] = data['pm25']
             place_dict['pm10'] = data['pm10']
@@ -494,10 +497,10 @@ def air_box(request):
             place_data_dict[data['name']] = place_dict
             place_dict['color'] = "white"
             for key in value_keys:
-                if place_dict[key] > values_threshold[key]:
+                if place_dict[key] > values_threshold[key]: #若超出閾值則將格子背景設為紅色
                     place_dict['color'] = "red"
                     break
-        for data in data_dict['exclusion']:
+        for data in data_dict['exclusion']: #離線機器資料
             place_dict = {}
             place_dict['status'] = data['status']
             place_dict['time'] = data['time']
